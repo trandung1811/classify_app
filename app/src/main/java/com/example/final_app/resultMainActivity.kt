@@ -1,20 +1,14 @@
 package com.example.final_app
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.final_app.recyclerview.Model
-import java.io.ByteArrayOutputStream
-import java.io.FileOutputStream
 
-class MainActivity2 : AppCompatActivity() {
+class resultMainActivity : AppCompatActivity() {
     private lateinit var predictedResult: TextView
     private lateinit var confidenceTextview: TextView
     private lateinit var imageView: ImageView
@@ -22,7 +16,7 @@ class MainActivity2 : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_result)
         val intent = intent
         val result = intent.getStringExtra("predictedResult")
         val confidence = intent.getStringExtra("confidence")

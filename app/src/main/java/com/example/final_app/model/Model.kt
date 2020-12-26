@@ -1,6 +1,5 @@
-package com.example.final_app.recyclerview
+package com.example.final_app.model
 
-import android.graphics.Bitmap
 
 class Model (var imgFileName: String?, var name: String, var acc: String) {
 

@@ -12,13 +12,13 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.final_app.recyclerview.Model
+import com.example.final_app.model.Model
 import com.example.final_app.recyclerview.PostsAdapter
-import com.example.final_app.recyclerview.recyclerView2
+import com.example.final_app.interfer.onCarItemClickListener
+import com.example.final_app.recyclerview.recyMainActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.karumi.dexter.Dexter
@@ -30,11 +30,10 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
-import java.io.UTFDataFormatException
 import java.lang.Math.round
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), onCarItemClickListener {
     //variable for tensorflow model
     private  val mInputsize = 224
     private  val mModelPath = "dog_nasnet_mobile_model.tflite"
@@ -166,7 +165,7 @@ class MainActivity : AppCompatActivity() {
                     val convertFloat = round(float * 10000) / 100
                     confidence = convertFloat.toString() +"%"
 
-                    val intent = Intent(this@MainActivity, MainActivity2::class.java)
+                    val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
                     intent.putExtra("confidence", confidence)
                     intent.putExtra("fileName", createImageFromBitmap(bitmap))
@@ -176,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                     predictedResult = "unable to find"
                     confidence = "0%"
 
-                    val intent = Intent(this@MainActivity, MainActivity2::class.java)
+                    val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
                     intent.putExtra("confidence", confidence)
                     intent.putExtra("fileName", createImageFromBitmap(bitmap))
@@ -225,7 +224,7 @@ class MainActivity : AppCompatActivity() {
     private fun displayRecyclerView(view: RecyclerView, post: ArrayList<Model>) {
 
         view.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        view.adapter = PostsAdapter(this,post)
+        view.adapter = PostsAdapter(this,post, this)
 
     }
 
@@ -260,6 +259,13 @@ class MainActivity : AppCompatActivity() {
         } else {
             return post
         }
+    }
+
+    override fun onItemClick(item: Model, position: Int) {
+
+        val intent = Intent(this@MainActivity, recyMainActivity::class.java)
+        startActivity(intent)
+
     }
 
 }

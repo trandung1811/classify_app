@@ -9,14 +9,26 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
+import com.example.final_app.interfer.onCarItemClickListener
+import com.example.final_app.model.Model
 
-class PostsAdapter(var context: Context, val posts: ArrayList<Model>): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(var context: Context, val posts: ArrayList<Model>, var clickListener: onCarItemClickListener): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-       val firstName: TextView = itemView.findViewById(R.id.nameTextView)
-        val imageView: ImageView = itemView.findViewById(R.id.circleImageView)
-        val confidence: TextView = itemView.findViewById(R.id.accTextView)
+       var firstName: TextView = itemView.findViewById(R.id.nameTextView)
+        var imageView: ImageView = itemView.findViewById(R.id.circleImageView)
+        var confidence: TextView = itemView.findViewById(R.id.accTextView)
+     fun initialize(item: Model, context: Context, action: onCarItemClickListener) {
+         val bitmap = BitmapFactory.decodeStream(context.openFileInput(item.imgFileName))
+         imageView.setImageBitmap(bitmap)
+         firstName.text = item.name
+         confidence.text = item.acc
+         itemView.setOnClickListener {
+             action.onItemClick(item,adapterPosition)
+         }
 
+     }
     }
 
 
@@ -27,12 +39,12 @@ class PostsAdapter(var context: Context, val posts: ArrayList<Model>): RecyclerV
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val bitmap = BitmapFactory.decodeStream(context.openFileInput(posts[position].imgFileName))
-        holder.imageView.setImageBitmap(bitmap)
-        holder.firstName.text = posts[position].name
-        holder.confidence.text = posts[position].acc
+        holder.initialize(posts[position], context, clickListener)
     }
 
 
     override fun getItemCount() = posts.size
 }
+
+
+
