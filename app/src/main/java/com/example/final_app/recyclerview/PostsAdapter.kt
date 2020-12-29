@@ -23,7 +23,7 @@ class PostsAdapter(var context: Context, val posts: ArrayList<Model>, var clickL
          val bitmap = BitmapFactory.decodeStream(context.openFileInput(item.imgFileName))
          imageView.setImageBitmap(bitmap)
          firstName.text = item.name
-         confidence.text = item.acc
+         confidence.text = item.acc +"%"
          itemView.setOnClickListener {
              action.onItemClick(item,adapterPosition)
          }

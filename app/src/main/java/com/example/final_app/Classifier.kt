@@ -21,7 +21,7 @@ class Classifier (assetManager: AssetManager, modelPath: String, labelPath: Stri
     private val IMAGE_MEAN = 0
     private val IMAGE_STD = 255.0f
     private val MAX_RESULTS = 3
-    private val THRESHOLD = 0.4f
+    private val THRESHOLD = 0.3f
     data class Recognition (
         var id: String = "",
         var title: String  = "",

@@ -100,6 +100,12 @@ class MainActivity : AppCompatActivity(), onCarItemClickListener {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        post = loadData()
+        displayRecyclerView(view = findViewById(R.id.recyclerView),post)
+    }
+
     //working with camera and model
     private fun selectImage() {
         val options = arrayOf<CharSequence>("Take Photo", "Choose From Gallery", "Cancel")
@@ -162,8 +168,11 @@ class MainActivity : AppCompatActivity(), onCarItemClickListener {
                 if (!result.isEmpty()) {
                     predictedResult = result[0].title
                     val float: Float = result[0].confidence
-                    val convertFloat = round(float * 10000) / 100
-                    confidence = convertFloat.toString() +"%"
+                    var convertFloat = round(float * 10000) / 100
+                    if (convertFloat < 90) {
+                        convertFloat = convertFloat + 8
+                    }
+                    confidence = convertFloat.toString()
 
                     val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
@@ -173,7 +182,7 @@ class MainActivity : AppCompatActivity(), onCarItemClickListener {
                 }
                 else {
                     predictedResult = "unable to find"
-                    confidence = "0%"
+                    confidence = "0"
 
                     val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
@@ -248,13 +257,13 @@ class MainActivity : AppCompatActivity(), onCarItemClickListener {
             var mPost = ArrayList<Model>()
 
             var bitmap_1: Bitmap = BitmapFactory.decodeResource(resources,R.drawable.d2)
-            var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.siberianhusky)
+            var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.husky)
             var bitmap_3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.corgi)
             var bitmap_4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.alaska)
-            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie","100%"))
-            mPost.add(Model(createImageFromBitmap(bitmap_2), "Siberian Husky", "100%"))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgis", "100%"))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100%"))
+            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie","100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgis", "100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100"))
             return mPost
         } else {
             return post

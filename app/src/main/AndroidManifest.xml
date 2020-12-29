@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_app">
-        <activity android:name=".recyclerview.recyMainActivity"></activity>
+        <activity android:name=".history.historyViewMainActivity"></activity>
+        <activity android:name=".recyclerview.recyMainActivity" />
         <activity android:name=".recyclerview.recyclerActivity" />
         <activity android:name=".recyclerMainActivity" />
         <activity android:name=".recyclerview.recyclerMainActivity" />
