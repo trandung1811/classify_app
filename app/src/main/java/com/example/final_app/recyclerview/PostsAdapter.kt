@@ -9,17 +9,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
-import com.example.final_app.interfer.onCarItemClickListener
+import com.example.final_app.interfer.onItemClickListener
 import com.example.final_app.model.Model
 
-class PostsAdapter(var context: Context, val posts: ArrayList<Model>, var clickListener: onCarItemClickListener): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(var context: Context, val posts: ArrayList<Model>, var clickListener: onItemClickListener): RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
 
     class ViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
        var firstName: TextView = itemView.findViewById(R.id.nameTextView)
         var imageView: ImageView = itemView.findViewById(R.id.circleImageView)
         var confidence: TextView = itemView.findViewById(R.id.accTextView)
-     fun initialize(item: Model, context: Context, action: onCarItemClickListener) {
+     fun initialize(item: Model, context: Context, action: onItemClickListener) {
          val bitmap = BitmapFactory.decodeStream(context.openFileInput(item.imgFileName))
          imageView.setImageBitmap(bitmap)
          firstName.text = item.name

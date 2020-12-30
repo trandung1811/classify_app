@@ -15,9 +15,10 @@ import android.provider.MediaStore
 import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.final_app.explore.exploreActivity
 import com.example.final_app.model.Model
 import com.example.final_app.recyclerview.PostsAdapter
-import com.example.final_app.interfer.onCarItemClickListener
+import com.example.final_app.interfer.onItemClickListener
 import com.example.final_app.recyclerview.recyMainActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -33,7 +34,7 @@ import java.io.FileOutputStream
 import java.lang.Math.round
 
 
-class MainActivity : AppCompatActivity(), onCarItemClickListener {
+class MainActivity : AppCompatActivity(), onItemClickListener {
     //variable for tensorflow model
     private  val mInputsize = 224
     private  val mModelPath = "dog_nasnet_mobile_model.tflite"
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(), onCarItemClickListener {
     private lateinit var classifier: Classifier
     private lateinit var imageUri: Uri
     private lateinit var btnTakeImage: Button
+    private lateinit var btnExplore: Button
     private lateinit var predictedResult: String
     private lateinit var confidence: String
     private lateinit var bitmap: Bitmap
@@ -97,6 +99,12 @@ class MainActivity : AppCompatActivity(), onCarItemClickListener {
                     }
                 }).check()
 
+        }
+        //setting explore view
+        btnExplore = findViewById(R.id.btnExplore)
+        btnExplore.setOnClickListener {
+            var intent = Intent(this@MainActivity, exploreActivity::class.java)
+            startActivity(intent)
         }
     }
 

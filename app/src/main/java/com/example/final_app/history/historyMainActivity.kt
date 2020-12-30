@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
 import com.example.final_app.history.historyAdapter
 import com.example.final_app.history.historyViewMainActivity
-import com.example.final_app.interfer.onCarItemClickListener
+import com.example.final_app.interfer.onItemClickListener
 import com.example.final_app.model.Model
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -19,7 +19,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
 
 
-class recyMainActivity : AppCompatActivity(), onCarItemClickListener {
+class recyMainActivity : AppCompatActivity(), onItemClickListener {
 
     private lateinit var post: ArrayList<Model>
     override fun onCreate(savedInstanceState: Bundle?) {

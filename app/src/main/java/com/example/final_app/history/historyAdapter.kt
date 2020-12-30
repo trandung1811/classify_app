@@ -11,18 +11,18 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
-import com.example.final_app.interfer.onCarItemClickListener
+import com.example.final_app.interfer.onItemClickListener
 import com.example.final_app.model.Model
 import com.google.gson.Gson
 
-class historyAdapter (var context: Context, val posts: ArrayList<Model>, var clickListener: onCarItemClickListener): RecyclerView.Adapter<historyAdapter.hisViewHolder>() {
+class historyAdapter (var context: Context, val posts: ArrayList<Model>, var clickListener: onItemClickListener): RecyclerView.Adapter<historyAdapter.hisViewHolder>() {
 
     class hisViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         var firstName: TextView = itemView.findViewById(R.id.historyName)
         var imageView: ImageView = itemView.findViewById(R.id.hisImageView)
         var confidence: TextView = itemView.findViewById(R.id.historyAcc)
         var btnDelete: Button = itemView.findViewById(R.id.btnTDelete)
-        fun initialize(item: Model, context: Context, action: onCarItemClickListener) {
+        fun initialize(item: Model, context: Context, action: onItemClickListener) {
             val bitmap = BitmapFactory.decodeStream(context.openFileInput(item.imgFileName))
             imageView.setImageBitmap(bitmap)
             firstName.text = item.name
@@ -50,6 +50,7 @@ class historyAdapter (var context: Context, val posts: ArrayList<Model>, var cli
     private fun delete(position: Int) {
             posts.removeAt(position)
             saveData(posts)
+            notifyDataSetChanged()
             notifyItemRemoved(position)
 
     }
