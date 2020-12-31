@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">final_app</string>
+    <string name="app_name">DogBreed</string>
+    <string name="about_us">About Us ?</string>
+    <string name="scan">Scan</string>
+    <string name="explore">explore</string>
+    <string name="need_help">need help ?</string>
+    <string name="tips">Tips: You should crop the dog face for scanning to get more accurate result</string>
+    <string name="share">share</string>
+    <string name="unable_to_find">Unable to find</string>
+    <string name="try_again">Please try again by focusing on dog face</string>
+    <string name="more_information">More information about dog can be found in Explore</string>
+    <string name="result_1">Your dog looks </string>
+    <string name="result_2">% similar to </string>
+    <string name="information">More information about </string>
+    <string name="take_photo">Take Photo</string>
+    <string name="gallery">Choose From Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="option">Select Option</string>
+    <string name="save">Save</string>
 </resources>

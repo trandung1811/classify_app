@@ -6,6 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
@@ -19,11 +22,24 @@ import java.io.ByteArrayOutputStream
 import java.io.FileOutputStream
 
 
-class recyMainActivity : AppCompatActivity(), onItemClickListener {
+class historyMainActivity : AppCompatActivity(), onItemClickListener {
 
     private lateinit var post: ArrayList<Model>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // custom action bar
+        val mActionBar = supportActionBar
+        mActionBar?.setDisplayShowHomeEnabled(false)
+        mActionBar?.setDisplayShowTitleEnabled(false)
+        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar,null)
+        mActionBar?.customView = mCustomView
+        mActionBar?.setDisplayShowCustomEnabled(true)
+        val btnRateUs: ImageButton = findViewById(R.id.btnRate)
+        val btnGoToHis: ImageButton = findViewById(R.id.btn_history)
+        btnGoToHis.visibility = View.INVISIBLE
+        btnRateUs.visibility = View.INVISIBLE
+
         setContentView(R.layout.activity_history_main)
         //start the second recycle view
 
@@ -46,10 +62,10 @@ class recyMainActivity : AppCompatActivity(), onItemClickListener {
             var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.husky)
             var bitmap_3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.corgi)
             var bitmap_4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.alaska)
-            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie","100%"))
-            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100%"))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgis", "100%"))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100%"))
+            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie","100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgis", "100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100"))
             return mPost
         } else {
             return post

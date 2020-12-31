@@ -46,7 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="#D3D3D3"
-            app:cardCornerRadius="2dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/historyMainAcc">
@@ -59,7 +60,7 @@
                             android:id="@+id/historyMainExplore_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="8dp"
                             android:text="text "
                             android:textAlignment="center"
                             app:layout_constraintStart_toStartOf="parent"
@@ -69,14 +70,25 @@
                             android:id="@+id/resultTextView_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="64dp"
+                            android:layout_marginTop="12dp"
                             android:layout_marginBottom="8dp"
-                            android:text="Tips: You should crop the dog face for scanning to get more accurate result"
+                            android:text="@string/tips"
                             android:textAlignment="center"
                             android:textSize="10sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/hisDogBreedImageView" />
+
+                        <ImageView
+                            android:id="@+id/hisDogBreedImageView"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/d2"
+                            app:layout_constraintCircleRadius="2dp"
+                            app:layout_constraintEnd_toEndOf="@+id/btnHisExplore"
+                            app:layout_constraintStart_toStartOf="@+id/btnHisExplore"
                             app:layout_constraintTop_toBottomOf="@+id/btnHisExplore" />
 
                         <Button
@@ -84,7 +96,7 @@
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="4dp"
                             android:backgroundTint="@color/white"
                             android:text="click here"
                             android:textColor="@color/black"
@@ -100,7 +112,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="share"
+            android:text="@string/share"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />

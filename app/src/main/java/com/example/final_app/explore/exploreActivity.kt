@@ -4,13 +4,11 @@ import android.content.Intent
 import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ListView
-import android.widget.SearchView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
@@ -29,6 +27,17 @@ class exploreActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explore)
+
+        val mActionBar = supportActionBar
+        mActionBar?.setDisplayShowHomeEnabled(false)
+        mActionBar?.setDisplayShowTitleEnabled(false)
+        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar,null)
+        mActionBar?.customView = mCustomView
+        mActionBar?.setDisplayShowCustomEnabled(true)
+        val btnRateUs: ImageButton = findViewById(R.id.btnRate)
+        val btnGoToHis: ImageButton = findViewById(R.id.btn_history)
+        btnGoToHis.visibility = View.INVISIBLE
+        btnRateUs.visibility = View.INVISIBLE
 
         var sub_label_list = loadLabelList(assets, mLabelPath)
         label_list = ArrayList<String>(sub_label_list)

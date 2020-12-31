@@ -2,24 +2,23 @@ package com.example.final_app
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentValues
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.explore.exploreActivity
+import com.example.final_app.interfer.onItemClickListener
 import com.example.final_app.model.Model
 import com.example.final_app.recyclerview.PostsAdapter
-import com.example.final_app.interfer.onItemClickListener
-import com.example.final_app.recyclerview.recyMainActivity
+import com.example.final_app.recyclerview.historyMainActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.karumi.dexter.Dexter
@@ -61,6 +60,29 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // custom action bar
+        val mActionBar = supportActionBar
+        mActionBar?.setDisplayShowHomeEnabled(false)
+        mActionBar?.setDisplayShowTitleEnabled(false)
+        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
+        mActionBar?.customView = mCustomView
+        mActionBar?.setDisplayShowCustomEnabled(true)
+        val btnRateUs: ImageButton = findViewById(R.id.btnRate)
+        val btnGoToHis: ImageButton = findViewById(R.id.btn_history)
+
+        btnGoToHis.setOnClickListener {
+            val intent = Intent(this, historyMainActivity::class.java)
+            startActivity(intent)
+        }
+        btnRateUs.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$packageName")))
+            } catch (e: ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")))
+            }
+        }
 
         //recycle view
 
@@ -77,27 +99,27 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
 
             Dexter.withContext(this)
                 .withPermissions(
-                    listOf(
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.CAMERA
-                    )
+                        listOf(
+                                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                android.Manifest.permission.CAMERA
+                        )
                 ).withListener(object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-                        if (p0!!.areAllPermissionsGranted()) {
+                        override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
+                            if (p0!!.areAllPermissionsGranted()) {
 
-                            selectImage()
+                                selectImage()
 
+                            }
                         }
-                    }
 
-                    override fun onPermissionRationaleShouldBeShown(
-                        p0: MutableList<PermissionRequest>?,
-                        p1: PermissionToken?
-                    ) {
-                        p1!!.continuePermissionRequest()
-                    }
-                }).check()
+                        override fun onPermissionRationaleShouldBeShown(
+                                p0: MutableList<PermissionRequest>?,
+                                p1: PermissionToken?
+                        ) {
+                            p1!!.continuePermissionRequest()
+                        }
+                    }).check()
 
         }
         //setting explore view
@@ -111,28 +133,26 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     override fun onStart() {
         super.onStart()
         post = loadData()
-        displayRecyclerView(view = findViewById(R.id.recyclerView),post)
+        displayRecyclerView(view = findViewById(R.id.recyclerView), post)
     }
 
     //working with camera and model
     private fun selectImage() {
-        val options = arrayOf<CharSequence>("Take Photo", "Choose From Gallery", "Cancel")
+        val options = arrayOf<CharSequence>(getString(R.string.take_photo), getString(R.string.gallery), getString(R.string.cancel))
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Select Option")
+        builder.setTitle(getString(R.string.option))
         builder.setItems(options, DialogInterface.OnClickListener { dialog, item ->
-            if (options[item] == "Take Photo") {
+            if (options[item] == getString(R.string.take_photo)) {
                 dialog.dismiss()
                 val values = ContentValues()
-                values.put(MediaStore.Images.Media.TITLE, "New Picture")
-                values.put(MediaStore.Images.Media.DESCRIPTION, "From Your Camera")
                 imageUri = contentResolver.insert(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    values
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        values
                 )!!
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
                 startActivityForResult(intent, MY_CAMERA_REQUEST_CODE)
-            } else if (options[item] == "Choose From Gallery") {
+            } else if (options[item] == getString(R.string.gallery)) {
                 dialog.dismiss()
                 val pickupIntent = Intent(Intent.ACTION_PICK)
                 pickupIntent.type = "image/*"
@@ -140,7 +160,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                 pickupIntent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
                 startActivityForResult(pickupIntent, MY_PICK_UP_CODE)
 
-            } else if (options[item] == "Cancel") {
+            } else if (options[item] == getString(R.string.cancel)) {
                 dialog.dismiss()
             }
         })
@@ -149,6 +169,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        var fileName: String? = null
         if (requestCode == MY_CAMERA_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 if (imageUri != null) {
@@ -171,21 +192,21 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, result.uri)
-
+                fileName = createImageFromBitmap(bitmap)
                 val result = classifier.recognizeImage(bitmap)
                 if (!result.isEmpty()) {
                     predictedResult = result[0].title
                     val float: Float = result[0].confidence
                     var convertFloat = round(float * 10000) / 100
                     if (convertFloat < 90) {
-                        convertFloat = convertFloat + 8
+                        convertFloat = convertFloat + 10
                     }
                     confidence = convertFloat.toString()
 
                     val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
                     intent.putExtra("confidence", confidence)
-                    intent.putExtra("fileName", createImageFromBitmap(bitmap))
+                    intent.putExtra("fileName", fileName)
                     startActivityForResult(intent, UPDATE_CODE)
                 }
                 else {
@@ -195,16 +216,16 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                     val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
                     intent.putExtra("confidence", confidence)
-                    intent.putExtra("fileName", createImageFromBitmap(bitmap))
+                    intent.putExtra("fileName", fileName)
                     startActivity(intent)
                 }
             }
         }
         if (requestCode == UPDATE_CODE) {
             if (resultCode == RESULT_OK) {
-                post.add(0, Model(createImageFromBitmap(bitmap),predictedResult,confidence))
+                post.add(0, Model(createImageFromBitmap(bitmap), predictedResult, confidence))
                 saveData(post)
-                displayRecyclerView(view = findViewById(R.id.recyclerView),post)
+                displayRecyclerView(view = findViewById(R.id.recyclerView), post)
             }
         }
 
@@ -219,7 +240,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         var fileName: String? = "myImage" + Math.random() //no .png or .jpg needed
         try {
             val bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes)
             val fo: FileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE)
             fo.write(bytes.toByteArray())
             // remember close file output
@@ -241,7 +262,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     private fun displayRecyclerView(view: RecyclerView, post: ArrayList<Model>) {
 
         view.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        view.adapter = PostsAdapter(this,post, this)
+        view.adapter = PostsAdapter(this, post, this)
 
     }
 
@@ -264,12 +285,12 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         if (post == null) {
             var mPost = ArrayList<Model>()
 
-            var bitmap_1: Bitmap = BitmapFactory.decodeResource(resources,R.drawable.d2)
+            var bitmap_1: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.d2)
             var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.husky)
             var bitmap_3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.corgi)
             var bitmap_4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.alaska)
-            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie","100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgis", "100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie", "100"))
+            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100"))
             mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100"))
             mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100"))
             return mPost
@@ -280,7 +301,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
 
     override fun onItemClick(item: Model, position: Int) {
 
-        val intent = Intent(this@MainActivity, recyMainActivity::class.java)
+        val intent = Intent(this@MainActivity, historyMainActivity::class.java)
         startActivity(intent)
 
     }
