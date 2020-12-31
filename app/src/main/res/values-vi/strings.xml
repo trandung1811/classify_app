@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DogBreed</string>
+    <string name="about_us">Về Chúng Tôi ?</string>
+    <string name="scan">Phân Loại</string>
+    <string name="explore">Khám Phá</string>
+    <string name="need_help">Hướng Dẫn ?</string>
+    <string name="tips">Tips: Bạn nên cắt hình ảnh tập trung ở mặt của chú chó để nâng cao độ chính xác </string>
+    <string name="share">Chia sẻ </string>
+    <string name="unable_to_find">Không thể tìm được </string>
+    <string name="try_again">Bạn nên thử lại bằng cách crop hình ảnh rõ ràng hơn </string>
+    <string name="more_information">Xem thêm về giống chó này tại đây </string>
+    <string name="result_1">Chó của bạn có  </string>
+    <string name="result_2">% giống vơi  </string>
+    <string name="information">Thêm thông tin về  </string>
+    <string name="take_photo">Chụp Ảnh </string>
+    <string name="gallery">Tải Ảnh </string>
+    <string name="cancel">Huỷ Bỏ </string>
+    <string name="option">Lựa Chọn</string>
+    <string name="save">Lưu</string>
+</resources>
