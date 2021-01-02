@@ -85,7 +85,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/d2"
+                            android:src="@drawable/n"
                             app:layout_constraintCircleRadius="2dp"
                             app:layout_constraintEnd_toEndOf="@+id/btnHisExplore"
                             app:layout_constraintStart_toStartOf="@+id/btnHisExplore"

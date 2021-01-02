@@ -9,19 +9,16 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.final_app.R
-import com.example.final_app.interfer.onItemClickListener
-import com.example.final_app.model.Model
 import java.util.*
 import kotlin.collections.ArrayList
 
 class exploreActivity : AppCompatActivity() {
 
     private  val mLabelPath = "dog_label.txt"
-    private  var label_list: ArrayList<String> = ArrayList()
-    private  var displayList: ArrayList<String> = ArrayList()
+    private val mLink = "DogBreedList.txt"
+    private  var label_list: ArrayList<dataExplore> = ArrayList()
+    private  var displayList: ArrayList<dataExplore> = ArrayList()
     private lateinit var exploreAdapter: exploreAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,14 +37,17 @@ class exploreActivity : AppCompatActivity() {
         btnRateUs.visibility = View.INVISIBLE
 
         var sub_label_list = loadLabelList(assets, mLabelPath)
-        label_list = ArrayList<String>(sub_label_list)
+        var sub_link_list = loadLabelList(assets, mLink)
+        for (i in 0 until sub_label_list.size) {
+            label_list.add(dataExplore(sub_label_list[i], sub_link_list[i]))
+        }
         displayList.addAll(label_list)
         var listView = findViewById<ListView>(R.id.exploreListView)
         exploreAdapter = exploreAdapter(this, R.layout.explore_row, displayList)
         listView.adapter = exploreAdapter
         listView.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
             val intent = Intent(this, detailActivity::class.java)
-            intent.putExtra("dog_name", displayList[position])
+            intent.putExtra("dog_name", displayList[position].name)
             startActivity(intent)
         }
     }
@@ -71,7 +71,7 @@ class exploreActivity : AppCompatActivity() {
                         displayList.clear()
                         val search = newText.toLowerCase(Locale.getDefault())
                         label_list.forEach{
-                            if (it.toLowerCase(Locale.getDefault()).contains(search)) {
+                            if (it.name.toLowerCase(Locale.getDefault()).contains(search)) {
                                 displayList.add(it)
                             }
                             exploreAdapter.notifyDataSetChanged()

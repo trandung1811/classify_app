@@ -29,6 +29,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.FileOutputStream
 import java.lang.Math.round
 
@@ -87,7 +88,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         //recycle view
 
         post = loadData()
-
+        saveData(post)
         var recycleView: RecyclerView = findViewById(R.id.recyclerView)
         displayRecyclerView(recycleView, post)
 
@@ -237,7 +238,11 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             .start(this)
     }
     private fun createImageFromBitmap(bitmap: Bitmap): String? {
-        var fileName: String? = "myImage" + Math.random() //no .png or .jpg needed
+
+        var fileName: String? = "myImage" + round(Math.random() * 10000)/100//no .png or .jpg needed
+        while (fileExist(fileName)) {
+            fileName = "myImage" + round(Math.random() * 10000)/100
+        }
         try {
             val bytes = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes)
@@ -250,6 +255,10 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             fileName = null
         }
         return fileName
+    }
+    fun fileExist(fname: String?): Boolean {
+        val file: File = baseContext.getFileStreamPath(fname)
+        return file.exists()
     }
 
     private fun initClassifier() {

@@ -2,14 +2,14 @@ Afghan Hound
 African Hunting Dog
 Airedale Terrier
 American Staffordshire Terrier
-Appenzeller
+Appenzeller Sennenhund
 Australian Terrier
 Bedlington Terrier
 Bernese Mountain Dog
 Blenheim Spaniel
 Border Collie
 Border Terrier
-Boston Bull
+Boston Terrier
 Bouvier Des Flandres
 Brabancon Griffon
 Brittany Spaniel
@@ -21,15 +21,15 @@ Doberman
 English Foxhound
 English Setter
 English Springer
-EntleBucher
-Eskimo Dog
+Entlebucher Sennenhund
+American Eskimo Dog
 French Bulldog
 German Shepherd
 German Short-haired Pointer
 Gordon Setter
 Great Dane
 Great Pyrenees
-Greater Swiss Mountain dog
+Greater Swiss Mountain Dog
 Ibizan hound
 Irish Setter
 Irish Terrier
@@ -40,52 +40,52 @@ Japanese Spaniel
 Kerry Blue Terrier
 Labrador Retriever
 Lakeland Terrier
-Leonberg
-Lhasa
+Leonberger
+Lhasa Apso
 Maltese Dog
-Mexican Hairless
-Newfoundland
+Xoloitzcuintle (Mexican hairless dog)
+Newfoundland Dog
 Norfolk Terrier
 Norwegian Elkhound
 Norwich Terrier
 Old English Sheepdog
 Pekinese
 Pembroke Welsh Corgi
-Pomeranian
+Pomeranian Dog
 Rhodesian Ridgeback
 Rottweiler
-Saint Bernard
+St.Bernard
 Saluki
-Samoyed
+Samoyed Dog
 Scotch Terrier
 Scottish Deerhound
 Sealyham Terrier
 Shetland Sheepdog
 Shih Tzu
 Siberian Husky
-Staffordshire Bullterrier
+Staffordshire Bull Terrier
 Sussex Spaniel
 Tibetan Mastiff
 Tibetan Terrier
-Walker Hound
+Treeing Walker Coonhound
 Weimaraner
 Welsh Springer Spaniel
 West Highland White Terrier
 Yorkshire Terrier
 Affenpinscher
 Basenji
-Basset
+Basset Hound
 Beagle
 Black and Tan Coonhound
 Bloodhound
 Bluetick
 Borzoi
-Boxer
+Boxer Dog
 Briard
 Bull Mastiff
-Cairn
-Chow
-Clumber
+Cairn Terrier
+Chow Chow (dog)
+Clumber Spaniel
 Cocker Spaniel
 Collie
 Curly Coated Retriever
@@ -96,25 +96,25 @@ Giant Schnauzer
 Golden Retriever
 Groenendael
 Keeshond
-Kelpie
+Australian Kelpie
 Komondor
 Kuvasz
-Malamute
-Malinois
+AlasKan Malamute
+Belgian Shepherd (Malinois dog)
 Miniature Pinscher
 Miniature Poodle
 Miniature Schnauzer
 Otterhound
-Papillon
+Papillon (dog)
 Pug
-Redbone
+Redbone Coonhound
 Schipperke
 Silky Terrier
 Soft Coated Wheaten Terrier
 Standard Poodle
 Standard Schnauzer
 Toy Poodle
-Toy Terrier
+Toy Fox Terrier
 Vizsla
 Whippet
-Wire-haired_fox_terrier
+Wire Fox Terrier

@@ -44,15 +44,16 @@ class historyAdapter (var context: Context, val posts: ArrayList<Model>, var cli
         holder.initialize(posts[position], context, clickListener)
         holder.btnDelete.setOnClickListener {
             delete(position)
+
         }
+
     }
 
     private fun delete(position: Int) {
             posts.removeAt(position)
-            saveData(posts)
-            notifyDataSetChanged()
-            notifyItemRemoved(position)
-
+        saveData(posts)
+        notifyDataSetChanged()
+        notifyItemRemoved(position)
     }
     private fun saveData(post: ArrayList<Model>) {
         var sharedPreferences = context.getSharedPreferences("shared preferences",

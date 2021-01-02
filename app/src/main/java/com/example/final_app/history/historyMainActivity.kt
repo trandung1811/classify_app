@@ -46,7 +46,7 @@ class historyMainActivity : AppCompatActivity(), onItemClickListener {
         post = loadData()
         var recycleView: RecyclerView = findViewById(R.id.historyRecyclerview)
         displayRecyclerView(recycleView, post)
-
+       // saveData(post)
     }
     private fun loadData(): ArrayList<Model> {
         var sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE)
@@ -55,37 +55,11 @@ class historyMainActivity : AppCompatActivity(), onItemClickListener {
 
         val turnsType = object : TypeToken<ArrayList<Model>>() {}.type
         val post = gson.fromJson<ArrayList<Model>>(json, turnsType)
-        if (post == null) {
-            var mPost = ArrayList<Model>()
 
-            var bitmap_1: Bitmap = BitmapFactory.decodeResource(resources,R.drawable.d2)
-            var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.husky)
-            var bitmap_3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.corgi)
-            var bitmap_4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.alaska)
-            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie","100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgis", "100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100"))
-            return mPost
-        } else {
-            return post
-        }
+        return post
     }
-    private fun createImageFromBitmap(bitmap: Bitmap): String? {
-        var fileName: String? = "myImage" + Math.random() //no .png or .jpg needed
-        try {
-            val bytes = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-            val fo: FileOutputStream = openFileOutput(fileName, Context.MODE_PRIVATE)
-            fo.write(bytes.toByteArray())
-            // remember close file output
-            fo.close()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-            fileName = null
-        }
-        return fileName
-    }
+
+
     private fun displayRecyclerView(view: RecyclerView, post: ArrayList<Model>) {
 
         view.layoutManager = LinearLayoutManager(this)

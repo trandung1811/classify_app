@@ -1,6 +1,7 @@
 package com.example.final_app
 
 import android.content.Intent
+import android.content.res.AssetManager
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -21,6 +23,7 @@ class resultMainActivity : AppCompatActivity() {
     private lateinit var confidenceTextview: TextView
     private lateinit var imageView: ImageView
     private lateinit var explore: TextView
+    private lateinit var dogBreedImage: ImageView
 
 
     private lateinit var btnSave: Button
@@ -50,12 +53,14 @@ class resultMainActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeStream(openFileInput(fileName))
 
         imageView = findViewById(R.id.resultView)
+        dogBreedImage = findViewById(R.id.dogBreedImageView)
         predictedResult = findViewById(R.id.resultName)
         confidenceTextview = findViewById(R.id.resultAcc)
         explore = findViewById(R.id.resultExplore)
         btnSave = findViewById(R.id.btnSave)
         btnExplore = findViewById(R.id.btnResExplore)
         btnShare = findViewById(R.id.btnShare)
+
 
 
         if (confidence == "0") {
@@ -81,6 +86,20 @@ class resultMainActivity : AppCompatActivity() {
             }
 
         }
+        // new section
+        var label_list = loadLabelList(assets, "dog_label.txt")
+        var link_list = loadLabelList(assets, "DogBreedList.txt")
+
+        var position: Int = 200
+        for (i in 0 until label_list.size) {
+            if (result == label_list[i]) {
+                position = i
+                break
+            }
+        }
+        if (position != 200) {
+            Picasso.with(this).load(link_list[position]).into(dogBreedImage)
+        }
         btnExplore.setOnClickListener {
              val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result)
@@ -89,30 +108,31 @@ class resultMainActivity : AppCompatActivity() {
 
 
         //Create image
-        val paint = Paint()
-        val height: Float = paint.measureText("yY")
-        val bitHeight = bitmap.height
-        val bitmap_ = Bitmap.createBitmap(bitmap.width, (height+ bitHeight/5).toInt(), Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap_)
 
-        var string = getString(R.string.result_1) +" " + confidence + getString(R.string.result_2) +" " + result
-
-        paint.color = Color.WHITE
-        paint.style = Paint.Style.FILL
-        canvas.drawPaint(paint)
-        paint.color = Color.BLACK
-        paint.isAntiAlias = true
-        paint.textSize = (bitmap.height/20).toFloat()
-        paint.textAlign = Paint.Align.CENTER
-
-        val x_coord: Int = bitmap_.width /2
-        canvas.drawText(string, x_coord.toFloat(), height + bitHeight/7, paint)
-        var newBitmap = combineImages(bitmap, bitmap_)
-        val bytes = ByteArrayOutputStream()
-        newBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(contentResolver, newBitmap, "Title", null)
-        val imageUri: Uri = Uri.parse(path)
         btnShare.setOnClickListener {
+            val paint = Paint()
+            val height: Float = paint.measureText("yY")
+            val bitHeight = bitmap.height
+            val bitmap_ = Bitmap.createBitmap(bitmap.width, (height+ bitHeight/5).toInt(), Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap_)
+
+            var string = getString(R.string.result_1) +" " + confidence + getString(R.string.result_2) +" " + result
+
+            paint.color = Color.WHITE
+            paint.style = Paint.Style.FILL
+            canvas.drawPaint(paint)
+            paint.color = Color.BLACK
+            paint.isAntiAlias = true
+            paint.textSize = (bitmap.width/25).toFloat()
+            paint.textAlign = Paint.Align.CENTER
+
+            val x_coord: Int = bitmap_.width /2
+            canvas.drawText(string, x_coord.toFloat(), height + bitHeight/12, paint)
+            var newBitmap = combineImages(bitmap, bitmap_)
+            val bytes = ByteArrayOutputStream()
+            newBitmap?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            val path = MediaStore.Images.Media.insertImage(contentResolver, newBitmap, "Title", null)
+            val imageUri: Uri = Uri.parse(path)
             val share = Intent(Intent.ACTION_SEND)
             share.type = "image/jpeg"
             share.putExtra(Intent.EXTRA_STREAM, imageUri)
@@ -123,6 +143,10 @@ class resultMainActivity : AppCompatActivity() {
 
         val file: File = this.getFileStreamPath(fileName)
         val deleted: Boolean = file.delete()
+    }
+
+    private fun loadLabelList(assetManager: AssetManager, labelPath: String): List<String> {
+        return assetManager.open(labelPath).bufferedReader().useLines { it.toList() }
     }
     fun combineImages(c: Bitmap, s: Bitmap): Bitmap? {
         var cs: Bitmap? = null
