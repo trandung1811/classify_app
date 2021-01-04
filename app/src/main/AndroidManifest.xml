@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_app">
-        <activity android:name=".display_activity"></activity>
+        <activity android:name=".instruction"></activity>
+        <activity android:name=".display_activity" />
         <activity android:name=".explore.detailActivity" />
         <activity android:name=".explore.exploreActivity" />
         <activity android:name=".history.historyViewMainActivity" />

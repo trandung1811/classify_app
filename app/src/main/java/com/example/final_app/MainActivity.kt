@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     private lateinit var imageUri: Uri
     private lateinit var btnTakeImage: Button
     private lateinit var btnExplore: Button
+    private lateinit var btnHelp: Button
+    private lateinit var aboutUs: Button
     private lateinit var predictedResult: String
     private lateinit var confidence: String
     private lateinit var bitmap: Bitmap
@@ -128,6 +130,24 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         btnExplore.setOnClickListener {
             var intent = Intent(this@MainActivity, exploreActivity::class.java)
             startActivity(intent)
+        }
+        //help view
+        btnHelp = findViewById(R.id.helpTextView)
+        btnHelp.setOnClickListener {
+            val intent = Intent(this, instruction::class.java)
+            startActivity(intent)
+        }
+
+        //About us button
+        aboutUs = findViewById(R.id.btnAboutUs)
+        aboutUs.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=$packageName")))
+            } catch (e: ActivityNotFoundException) {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=$packageName")))
+            }
         }
     }
 
