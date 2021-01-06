@@ -22,11 +22,13 @@ class historyAdapter (var context: Context, val posts: ArrayList<Model>, var cli
         var imageView: ImageView = itemView.findViewById(R.id.hisImageView)
         var confidence: TextView = itemView.findViewById(R.id.historyAcc)
         var btnDelete: Button = itemView.findViewById(R.id.btnTDelete)
+        var dateTextView: TextView = itemView.findViewById(R.id.dateTime)
         fun initialize(item: Model, context: Context, action: onItemClickListener) {
             val bitmap = BitmapFactory.decodeStream(context.openFileInput(item.imgFileName))
             imageView.setImageBitmap(bitmap)
             firstName.text = item.name
             confidence.text = item.acc +"%"
+            dateTextView.text = item.date
             itemView.setOnClickListener {
                 action.onItemClick(item,adapterPosition)
             }

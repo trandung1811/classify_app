@@ -88,7 +88,7 @@ class Classifier (assetManager: AssetManager, modelPath: String, labelPath: Stri
         val recognitions = ArrayList<Classifier.Recognition>()
         val recognitionsSize = min(pq.size, MAX_RESULTS)
         for (i in 0 until recognitionsSize) {
-            recognitions.add(pq.poll())
+            recognitions?.add(pq.poll())
         }
         return recognitions
 

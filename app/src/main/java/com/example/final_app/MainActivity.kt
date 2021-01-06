@@ -32,6 +32,9 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Math.round
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity(), onItemClickListener {
@@ -79,11 +82,19 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         }
         btnRateUs.setOnClickListener {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$packageName")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$packageName")
+                    )
+                )
             } catch (e: ActivityNotFoundException) {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                    )
+                )
             }
         }
 
@@ -102,27 +113,27 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
 
             Dexter.withContext(this)
                 .withPermissions(
-                        listOf(
-                                android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                android.Manifest.permission.CAMERA
-                        )
+                    listOf(
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.CAMERA
+                    )
                 ).withListener(object : MultiplePermissionsListener {
-                        override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-                            if (p0!!.areAllPermissionsGranted()) {
+                    override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
+                        if (p0!!.areAllPermissionsGranted()) {
 
-                                selectImage()
+                            selectImage()
 
-                            }
                         }
+                    }
 
-                        override fun onPermissionRationaleShouldBeShown(
-                                p0: MutableList<PermissionRequest>?,
-                                p1: PermissionToken?
-                        ) {
-                            p1!!.continuePermissionRequest()
-                        }
-                    }).check()
+                    override fun onPermissionRationaleShouldBeShown(
+                        p0: MutableList<PermissionRequest>?,
+                        p1: PermissionToken?
+                    ) {
+                        p1!!.continuePermissionRequest()
+                    }
+                }).check()
 
         }
         //setting explore view
@@ -142,11 +153,19 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         aboutUs = findViewById(R.id.btnAboutUs)
         aboutUs.setOnClickListener {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=$packageName")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=$packageName")
+                    )
+                )
             } catch (e: ActivityNotFoundException) {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=$packageName")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                    )
+                )
             }
         }
     }
@@ -159,7 +178,11 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
 
     //working with camera and model
     private fun selectImage() {
-        val options = arrayOf<CharSequence>(getString(R.string.take_photo), getString(R.string.gallery), getString(R.string.cancel))
+        val options = arrayOf<CharSequence>(
+            getString(R.string.take_photo), getString(R.string.gallery), getString(
+                R.string.cancel
+            )
+        )
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.option))
         builder.setItems(options, DialogInterface.OnClickListener { dialog, item ->
@@ -167,8 +190,8 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                 dialog.dismiss()
                 val values = ContentValues()
                 imageUri = contentResolver.insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                        values
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    values
                 )!!
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
@@ -244,7 +267,9 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         }
         if (requestCode == UPDATE_CODE) {
             if (resultCode == RESULT_OK) {
-                post.add(0, Model(createImageFromBitmap(bitmap), predictedResult, confidence))
+                val date: String =
+                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                post.add(0, Model(createImageFromBitmap(bitmap), predictedResult, confidence, date))
                 saveData(post)
                 displayRecyclerView(view = findViewById(R.id.recyclerView), post)
             }
@@ -318,10 +343,12 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.husky)
             var bitmap_3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.corgi)
             var bitmap_4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.alaska)
-            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie", "100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100"))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100"))
+            val date: String =
+                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie", "100", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100", date))
             return mPost
         } else {
             return post

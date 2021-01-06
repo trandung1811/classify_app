@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B9FFFFFF"
     tools:context=".history.historyViewMainActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -25,7 +24,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="TextView"
-            android:textColor="@color/black"
+            android:textColor="#589C96"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/historyMainView" />
