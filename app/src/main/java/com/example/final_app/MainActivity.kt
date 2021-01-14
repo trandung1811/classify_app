@@ -251,47 +251,48 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                     if (convertFloat < 90) {
                         convertFloat = convertFloat + 10
                     }
-                    confidence = convertFloat.toString()
+                    if (convertFloat > 20) {
+                        confidence = convertFloat.toString()
+                        predictedResult_1 = result[1].title
+                        val float_1: Float = result[1].confidence
+                        var convertFloat_1 = round(float_1 * 10000) / 100
+                        if (convertFloat_1 < 90) {
+                            convertFloat_1 = convertFloat_1 + 10
+                        }
+                        confidence_1 = convertFloat_1.toString()
 
-                    predictedResult_1 = result[1].title
-                    val float_1: Float = result[1].confidence
-                    var convertFloat_1 = round(float_1 * 10000) / 100
-                    if (convertFloat_1 < 90) {
-                        convertFloat_1 = convertFloat_1 + 10
+                        predictedResult_2 = result[2].title
+                        val float_2: Float = result[2].confidence
+                        var convertFloat_2 = round(float_2 * 10000) / 100
+                        if (convertFloat_2 < 90) {
+                            convertFloat_2 = convertFloat_2 + 10
+                        }
+                        confidence_2 = convertFloat_2.toString()
+
+                        val intent = Intent(this@MainActivity, resultMainActivity::class.java)
+                        intent.putExtra("predictedResult", predictedResult)
+                        intent.putExtra("confidence", confidence)
+                        intent.putExtra("predictedResult_1", predictedResult_1)
+                        intent.putExtra("confidence_1", confidence_1)
+                        intent.putExtra("predictedResult_2", predictedResult_2)
+                        intent.putExtra("confidence_2", confidence_2)
+                        intent.putExtra("fileName", fileName)
+                        startActivityForResult(intent, UPDATE_CODE)
                     }
-                    confidence_1 = convertFloat_1.toString()
+                    else {
+                        predictedResult = "unable to find"
+                        confidence = "0"
 
-                    predictedResult_2 = result[2].title
-                    val float_2: Float = result[2].confidence
-                    var convertFloat_2 = round(float_2 * 10000) / 100
-                    if (convertFloat_2 < 90) {
-                        convertFloat_2 = convertFloat_2 + 10
+                        val intent = Intent(this@MainActivity, resultMainActivity::class.java)
+                        intent.putExtra("predictedResult", predictedResult)
+                        intent.putExtra("confidence", confidence)
+                        intent.putExtra("predictedResult_1", predictedResult)
+                        intent.putExtra("confidence_1", confidence)
+                        intent.putExtra("predictedResult_2", predictedResult)
+                        intent.putExtra("confidence_2", confidence)
+                        intent.putExtra("fileName", fileName)
+                        startActivity(intent)
                     }
-                    confidence_2 = convertFloat_2.toString()
-
-                    val intent = Intent(this@MainActivity, resultMainActivity::class.java)
-                    intent.putExtra("predictedResult", predictedResult)
-                    intent.putExtra("confidence", confidence)
-                    intent.putExtra("predictedResult_1", predictedResult_1)
-                    intent.putExtra("confidence_1", confidence_1)
-                    intent.putExtra("predictedResult_2", predictedResult_2)
-                    intent.putExtra("confidence_2", confidence_2)
-                    intent.putExtra("fileName", fileName)
-                    startActivityForResult(intent, UPDATE_CODE)
-                }
-                else {
-                    predictedResult = "unable to find"
-                    confidence = "0"
-
-                    val intent = Intent(this@MainActivity, resultMainActivity::class.java)
-                    intent.putExtra("predictedResult", predictedResult)
-                    intent.putExtra("confidence", confidence)
-                    intent.putExtra("predictedResult_1", predictedResult)
-                    intent.putExtra("confidence_1", confidence)
-                    intent.putExtra("predictedResult_2", predictedResult)
-                    intent.putExtra("confidence_2", confidence)
-                    intent.putExtra("fileName", fileName)
-                    startActivity(intent)
                 }
             }
         }

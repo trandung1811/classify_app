@@ -83,7 +83,11 @@ class resultMainActivity : AppCompatActivity() {
             btnSave.isEnabled = false
             imageView.setImageBitmap(bitmap)
             predictedResult.text = getString(R.string.unable_to_find)
-            confidenceTextview.text = getString(R.string.try_again)
+            confidenceTextview.visibility = View.INVISIBLE
+            confidencTextview_1.visibility = View.INVISIBLE
+            confidenceTextview_2.visibility = View.INVISIBLE
+            var subText: TextView = findViewById(R.id.constTextView)
+            subText.text = getString(R.string.try_again)
             explore.text = getString(R.string.more_information)
             explore.isEnabled = false
             btnExplore.isEnabled = false
