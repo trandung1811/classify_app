@@ -22,10 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="TextView"
-        android:textColor="@color/black"
+        android:textColor="#589C96"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultView" />
@@ -35,21 +35,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginLeft="10dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#589C96"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/constTextView"
         app:layout_constraintTop_toBottomOf="@+id/resultName" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/resultCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         app:cardCornerRadius="6dp"
         app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultAcc">
+        app:layout_constraintTop_toBottomOf="@+id/resultAcc_2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -85,27 +86,73 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/n"
                 app:layout_constraintCircleRadius="2dp"
                 app:layout_constraintEnd_toEndOf="@+id/btnResExplore"
                 app:layout_constraintStart_toStartOf="@+id/btnResExplore"
-                app:layout_constraintTop_toBottomOf="@+id/btnResExplore"
-                android:src="@drawable/n"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/btnResExplore" />
 
             <Button
                 android:id="@+id/btnResExplore"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:backgroundTint="@color/white"
                 android:text="click here"
                 android:textColor="@color/black"
-                android:textSize="10sp"
+                android:textSize="8sp"
                 android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/resultExplore" />
+
+            <Button
+                android:id="@+id/btnResExplore_1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="click here"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/btnResExplore"
+                app:layout_constraintTop_toTopOf="@+id/btnResExplore" />
+
+            <ImageView
+                android:id="@+id/dogBreedImageView_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/btnResExplore_1"
+                app:layout_constraintStart_toStartOf="@+id/btnResExplore_1"
+                app:layout_constraintTop_toBottomOf="@+id/btnResExplore_1"
+                app:srcCompat="@drawable/n" />
+
+            <Button
+                android:id="@+id/btnResExplore_2"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="click here"
+                android:textColor="@color/black"
+                android:textSize="8sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/btnResExplore"
+                app:layout_constraintTop_toTopOf="@+id/btnResExplore" />
+
+            <ImageView
+                android:id="@+id/dogBreedImageView_2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="@+id/btnResExplore_2"
+                app:layout_constraintStart_toStartOf="@+id/btnResExplore_2"
+                app:layout_constraintTop_toBottomOf="@+id/btnResExplore_2"
+                app:srcCompat="@drawable/n" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
@@ -115,6 +162,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/save"
+        style="?android:attr/borderlessButtonStyle"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultCardView" />
@@ -124,8 +174,40 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="@string/share"
+        style="?android:attr/borderlessButtonStyle"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSave" />
+
+    <TextView
+        android:id="@+id/constTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/your_dog_looks"
+        app:layout_constraintStart_toStartOf="@+id/resultName"
+        app:layout_constraintTop_toBottomOf="@+id/resultName" />
+
+    <TextView
+        android:id="@+id/resultAcc_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="italic"
+        android:textColor="#589C96"
+        app:layout_constraintStart_toStartOf="@+id/resultAcc"
+        app:layout_constraintTop_toBottomOf="@+id/resultAcc" />
+
+    <TextView
+        android:id="@+id/resultAcc_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textStyle="italic"
+        android:textColor="#589C96"
+        app:layout_constraintStart_toStartOf="@+id/resultAcc_1"
+        app:layout_constraintTop_toBottomOf="@+id/resultAcc_1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

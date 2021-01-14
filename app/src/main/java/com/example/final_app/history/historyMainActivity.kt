@@ -71,6 +71,10 @@ class historyMainActivity : AppCompatActivity(), onItemClickListener {
         val intent = Intent(this, historyViewMainActivity::class.java)
         intent.putExtra("historyName", item.name)
         intent.putExtra("historyConfidence",item.acc)
+        intent.putExtra("historyName_1", item.name_1)
+        intent.putExtra("historyConfidence_1",item.acc_1)
+        intent.putExtra("historyName_2", item.name_2)
+        intent.putExtra("historyConfidence_2",item.acc_2)
         intent.putExtra("historyImg", item.imgFileName)
         startActivity(intent)
     }

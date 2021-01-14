@@ -21,14 +21,20 @@ import java.io.File
 class resultMainActivity : AppCompatActivity() {
     private lateinit var predictedResult: TextView
     private lateinit var confidenceTextview: TextView
+    private lateinit var confidencTextview_1: TextView
+    private lateinit var confidenceTextview_2: TextView
     private lateinit var imageView: ImageView
     private lateinit var explore: TextView
     private lateinit var dogBreedImage: ImageView
+    private lateinit var dogBreedImage_1: ImageView
+    private lateinit var dogBreedImage_2: ImageView
 
 
     private lateinit var btnSave: Button
     private lateinit var btnExplore: Button
     private lateinit var btnShare: Button
+    private lateinit var btnExplore_1: Button
+    private lateinit var btnExplore_2: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,17 +55,27 @@ class resultMainActivity : AppCompatActivity() {
         val intent = intent
         val result = intent.getStringExtra("predictedResult")
         val confidence = intent.getStringExtra("confidence")
+        val result_1 = intent.getStringExtra("predictedResult_1")
+        val confidence_1 = intent.getStringExtra("confidence_1")
+        val result_2 = intent.getStringExtra("predictedResult_2")
+        val confidence_2 = intent.getStringExtra("confidence_2")
         val fileName = intent.getStringExtra("fileName")
         val bitmap = BitmapFactory.decodeStream(openFileInput(fileName))
 
         imageView = findViewById(R.id.resultView)
         dogBreedImage = findViewById(R.id.dogBreedImageView)
+        dogBreedImage_1 = findViewById(R.id.dogBreedImageView_1)
+        dogBreedImage_2 = findViewById(R.id.dogBreedImageView_2)
         predictedResult = findViewById(R.id.resultName)
         confidenceTextview = findViewById(R.id.resultAcc)
+        confidencTextview_1 = findViewById(R.id.resultAcc_1)
+        confidenceTextview_2 = findViewById(R.id.resultAcc_2)
         explore = findViewById(R.id.resultExplore)
         btnSave = findViewById(R.id.btnSave)
         btnExplore = findViewById(R.id.btnResExplore)
         btnShare = findViewById(R.id.btnShare)
+        btnExplore_1 = findViewById(R.id.btnResExplore_1)
+        btnExplore_2 = findViewById(R.id.btnResExplore_2)
 
 
 
@@ -77,8 +93,10 @@ class resultMainActivity : AppCompatActivity() {
 
             imageView.setImageBitmap(bitmap)
             predictedResult.text = result
-            confidenceTextview.text = getString(R.string.result_1) +" " + confidence + getString(R.string.result_2) +" " + result
-            explore.text = getString(R.string.information) + " " + result + ":"
+            confidenceTextview.text = " " + result + " - " + confidence +"%"
+            confidencTextview_1.text = " " + result_1 + " - " + confidence_1 +"%"
+            confidenceTextview_2.text = " " + result_2 + " - " + confidence_2 +"%"
+            explore.text = getString(R.string.information)
             btnSave.setOnClickListener {
                 val new_intent = Intent()
                 setResult(RESULT_OK, new_intent)
@@ -100,9 +118,44 @@ class resultMainActivity : AppCompatActivity() {
         if (position != 200) {
             Picasso.with(this).load(link_list[position]).into(dogBreedImage)
         }
+        btnExplore.text = result
         btnExplore.setOnClickListener {
              val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result)
+            startActivity(intent)
+        }
+
+        var position_1: Int = 200
+        for (i in 0 until label_list.size) {
+            if (result_1 == label_list[i]) {
+                position_1 = i
+                break
+            }
+        }
+        if (position_1 != 200) {
+            Picasso.with(this).load(link_list[position_1]).into(dogBreedImage_1)
+        }
+        btnExplore_1.text = result_1
+        btnExplore_1.setOnClickListener {
+            val intent = Intent(this, display_activity::class.java)
+            intent.putExtra("display_name", result_1)
+            startActivity(intent)
+        }
+
+        var position_2: Int = 200
+        for (i in 0 until label_list.size) {
+            if (result_2 == label_list[i]) {
+                position_2 = i
+                break
+            }
+        }
+        if (position_2 != 200) {
+            Picasso.with(this).load(link_list[position_2]).into(dogBreedImage_2)
+        }
+        btnExplore_2.text = result_2
+        btnExplore_2.setOnClickListener {
+            val intent = Intent(this, display_activity::class.java)
+            intent.putExtra("display_name", result_2)
             startActivity(intent)
         }
 

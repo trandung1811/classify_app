@@ -9,12 +9,13 @@
     <string name="unable_to_find">Unable to find</string>
     <string name="try_again">Please try again by focusing on dog face</string>
     <string name="more_information">More information about dog can be found in Explore</string>
-    <string name="result_1">Your dog looks </string>
+    <string name="result_1">Your dog looks like</string>
     <string name="result_2">% similar to </string>
-    <string name="information">More information about </string>
+    <string name="information">More information about DogBreed </string>
     <string name="take_photo">Take Photo</string>
     <string name="gallery">Choose From Gallery</string>
     <string name="cancel">Cancel</string>
     <string name="option">Select Option</string>
     <string name="save">Save</string>
+    <string name="your_dog_looks">Your dog looks like</string>
 </resources>

@@ -12,10 +12,12 @@
     <string name="more_information">Xem thêm về giống chó này tại đây </string>
     <string name="result_1">Chó của bạn có  </string>
     <string name="result_2">% giống vơi  </string>
-    <string name="information">Thêm thông tin về  </string>
+    <string name="information">Thêm thông tin về các giống chó </string>
     <string name="take_photo">Chụp Ảnh </string>
     <string name="gallery">Tải Ảnh </string>
     <string name="cancel">Huỷ Bỏ </string>
     <string name="option">Lựa Chọn</string>
     <string name="save">Lưu</string>
+    <string name="your_dog_looks">Chó của bạn giống với </string>
+
 </resources>

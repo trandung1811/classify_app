@@ -25,7 +25,7 @@ class detailActivity : AppCompatActivity() {
         val mActionBar = supportActionBar
         mActionBar?.setDisplayShowHomeEnabled(false)
         mActionBar?.setDisplayShowTitleEnabled(false)
-        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar,null)
+        val mCustomView = LayoutInflater.from(this).inflate(R.layout.custom_action_bar, null)
         mActionBar?.customView = mCustomView
         mActionBar?.setDisplayShowCustomEnabled(true)
         val btnRateUs: ImageButton = findViewById(R.id.btnRate)
@@ -35,14 +35,13 @@ class detailActivity : AppCompatActivity() {
 
         //alear Dialog
         var locale = Locale.getDefault()
-        Log.d("meage",locale.toString())
         if (locale.toString() == "vi_GB") {
             val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
             var key = sharedPreferences.getBoolean("key", false)
             if (!key) {
                 val mDialogView = LayoutInflater.from(this).inflate(R.layout.sample, null)
                 val mBuilder = AlertDialog.Builder(this)
-                        .setView(mDialogView)
+                    .setView(mDialogView)
                 val mAlertDialog = mBuilder.show()
                 var button_1: Button = mAlertDialog.findViewById(R.id.btnSample)
                 button_1.setOnClickListener {
@@ -52,7 +51,7 @@ class detailActivity : AppCompatActivity() {
                 button_2.setOnClickListener {
                     var check = true
                     val sharedPreferences =
-                            getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                     val editor: SharedPreferences.Editor = sharedPreferences.edit()
                     editor.putBoolean("key", check)
                     editor.apply()
@@ -65,8 +64,25 @@ class detailActivity : AppCompatActivity() {
         webView = findViewById(R.id.webView)
         webView.webViewClient = WebViewClient()
         val bundle = intent.extras
-        if(bundle!=null){
-            webView.loadUrl( "https://en.m.wikipedia.org/wiki/" + bundle.getString("dog_name"));
+        if (bundle != null) {
+            var dog_name = bundle.getString("dog_name")
+            if (dog_name == "Bac Ha") {
+                var locale = Locale.getDefault()
+                if (locale.toString() == "vi_GB") {
+                    webView.loadUrl("https://sieupet.com/giong-cho-bac-ha.html")
+                } else {
+                    webView.loadUrl("https://en.m.wikipedia.org/wiki/" + bundle.getString("dog_name"));
+                }
+            } else if (dog_name == "H'Mong Coc Duoi") {
+                var locale = Locale.getDefault()
+                if (locale.toString() == "vi_GB") {
+                    webView.loadUrl("https://www.vietdvm.com/thu-canh/giong-thu-canh/giong-cho-hmong-coc-duoi.html")
+                } else {
+                    webView.loadUrl("https://en.m.wikipedia.org/wiki/" + bundle.getString("dog_name"));
+                }
+            } else {
+                webView.loadUrl("https://en.m.wikipedia.org/wiki/" + bundle.getString("dog_name"));
+            }
         }
     }
 }

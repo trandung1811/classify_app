@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageButton
@@ -59,6 +60,10 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     private lateinit var aboutUs: Button
     private lateinit var predictedResult: String
     private lateinit var confidence: String
+    private lateinit var predictedResult_1: String
+    private lateinit var confidence_1: String
+    private lateinit var predictedResult_2: String
+    private lateinit var confidence_2: String
     private lateinit var bitmap: Bitmap
 
     private lateinit var post: ArrayList<Model>
@@ -239,6 +244,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                 fileName = createImageFromBitmap(bitmap)
                 val result = classifier.recognizeImage(bitmap)
                 if (!result.isEmpty()) {
+
                     predictedResult = result[0].title
                     val float: Float = result[0].confidence
                     var convertFloat = round(float * 10000) / 100
@@ -247,9 +253,29 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                     }
                     confidence = convertFloat.toString()
 
+                    predictedResult_1 = result[1].title
+                    val float_1: Float = result[1].confidence
+                    var convertFloat_1 = round(float_1 * 10000) / 100
+                    if (convertFloat_1 < 90) {
+                        convertFloat_1 = convertFloat_1 + 10
+                    }
+                    confidence_1 = convertFloat_1.toString()
+
+                    predictedResult_2 = result[2].title
+                    val float_2: Float = result[2].confidence
+                    var convertFloat_2 = round(float_2 * 10000) / 100
+                    if (convertFloat_2 < 90) {
+                        convertFloat_2 = convertFloat_2 + 10
+                    }
+                    confidence_2 = convertFloat_2.toString()
+
                     val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
                     intent.putExtra("confidence", confidence)
+                    intent.putExtra("predictedResult_1", predictedResult_1)
+                    intent.putExtra("confidence_1", confidence_1)
+                    intent.putExtra("predictedResult_2", predictedResult_2)
+                    intent.putExtra("confidence_2", confidence_2)
                     intent.putExtra("fileName", fileName)
                     startActivityForResult(intent, UPDATE_CODE)
                 }
@@ -260,6 +286,10 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                     val intent = Intent(this@MainActivity, resultMainActivity::class.java)
                     intent.putExtra("predictedResult", predictedResult)
                     intent.putExtra("confidence", confidence)
+                    intent.putExtra("predictedResult_1", predictedResult)
+                    intent.putExtra("confidence_1", confidence)
+                    intent.putExtra("predictedResult_2", predictedResult)
+                    intent.putExtra("confidence_2", confidence)
                     intent.putExtra("fileName", fileName)
                     startActivity(intent)
                 }
@@ -269,7 +299,8 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             if (resultCode == RESULT_OK) {
                 val date: String =
                     SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-                post.add(0, Model(createImageFromBitmap(bitmap), predictedResult, confidence, date))
+                post.add(0, Model(createImageFromBitmap(bitmap), predictedResult, confidence, predictedResult_1,
+                        confidence_1, predictedResult_2, confidence_2, date))
                 saveData(post)
                 displayRecyclerView(view = findViewById(R.id.recyclerView), post)
             }
@@ -339,16 +370,16 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         if (post == null) {
             var mPost = ArrayList<Model>()
 
-            var bitmap_1: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.d2)
+            var bitmap_1: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.toypoodle)
             var bitmap_2: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.husky)
             var bitmap_3: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.corgi)
             var bitmap_4: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.alaska)
             val date: String =
                 SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-            mPost.add(Model(createImageFromBitmap(bitmap_1), "Becgie", "100", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_2), "Husky", "100", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_1), "Toy Poodle", "100", "Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100","Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_2), "Siberian Husky", "100","Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100","Unknown", "0", "Unknown", "0", date))
             return mPost
         } else {
             return post

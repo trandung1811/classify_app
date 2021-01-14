@@ -29,8 +29,9 @@ class display_activity : AppCompatActivity() {
         webView = findViewById(R.id.disWebView)
         webView.webViewClient = WebViewClient()
         val bundle = intent.extras
+
         if (bundle != null) {
-            webView.loadUrl("https://en.m.wikipedia.org/wiki/" + bundle.getString("display_name"));
+                webView.loadUrl("https://en.m.wikipedia.org/wiki/" + bundle.getString("display_name"));
+            }
         }
     }
-}

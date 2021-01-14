@@ -30,26 +30,27 @@
             app:layout_constraintTop_toBottomOf="@+id/historyMainView" />
 
         <TextView
-            android:id="@+id/historyMainAcc"
+            android:id="@+id/hisTextView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="italic"
+            android:textColor="#589C96"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/historyMainName" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="8dp"
             android:background="#D3D3D3"
             app:cardCornerRadius="6dp"
             app:cardElevation="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/historyMainAcc">
+            app:layout_constraintTop_toBottomOf="@+id/hisTextView4">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -90,19 +91,65 @@
                             app:layout_constraintStart_toStartOf="@+id/btnHisExplore"
                             app:layout_constraintTop_toBottomOf="@+id/btnHisExplore" />
 
+                    <Button
+                        android:id="@+id/btnHisExplore"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:backgroundTint="@color/white"
+                        android:text="click here"
+                        android:textColor="@color/black"
+                        android:textSize="8sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/historyMainExplore_1" />
+
                         <Button
-                            android:id="@+id/btnHisExplore"
+                            android:id="@+id/btnHisExplore_1"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:backgroundTint="@color/white"
                             android:text="click here"
                             android:textColor="@color/black"
-                            android:textSize="10sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            android:textSize="8sp"
+                            app:layout_constraintEnd_toStartOf="@+id/btnHisExplore"
                             app:layout_constraintTop_toBottomOf="@+id/historyMainExplore_1" />
+
+                        <Button
+                            android:id="@+id/btnHisExplore_2"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:backgroundTint="@color/white"
+                            android:text="click here"
+                            android:textColor="@color/black"
+                            android:textSize="8sp"
+                            app:layout_constraintStart_toEndOf="@+id/btnHisExplore"
+                            app:layout_constraintTop_toBottomOf="@+id/historyMainExplore_1" />
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintEnd_toStartOf="@+id/btnHisExplore"
+                            app:layout_constraintStart_toStartOf="@+id/btnHisExplore_1"
+                            app:layout_constraintTop_toBottomOf="@+id/btnHisExplore_1"
+                            app:srcCompat="@drawable/n" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintEnd_toEndOf="@+id/btnHisExplore_2"
+                        app:layout_constraintStart_toEndOf="@+id/btnHisExplore"
+                        app:layout_constraintTop_toBottomOf="@+id/btnHisExplore_2"
+                        app:srcCompat="@drawable/n" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -110,10 +157,42 @@
             android:id="@+id/btnHisShare"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
             android:text="@string/share"
+            style="?android:attr/borderlessButtonStyle"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            android:layout_marginTop="36dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/your_dog_looks"
+            app:layout_constraintStart_toStartOf="@+id/historyMainName"
+            app:layout_constraintTop_toBottomOf="@+id/historyMainName" />
+
+        <TextView
+            android:id="@+id/hisTextView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textStyle="italic"
+            android:textColor="#589C96"
+            app:layout_constraintStart_toStartOf="@+id/hisTextView2"
+            app:layout_constraintTop_toBottomOf="@+id/hisTextView2" />
+
+        <TextView
+            android:id="@+id/hisTextView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textStyle="italic"
+            android:textColor="#589C96"
+            app:layout_constraintStart_toStartOf="@+id/hisTextView3"
+            app:layout_constraintTop_toBottomOf="@+id/hisTextView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,7 +21,7 @@ class Classifier (assetManager: AssetManager, modelPath: String, labelPath: Stri
     private val IMAGE_MEAN = 0
     private val IMAGE_STD = 255.0f
     private val MAX_RESULTS = 3
-    private val THRESHOLD = 0.3f
+    private val THRESHOLD = 0.0f
     data class Recognition (
         var id: String = "",
         var title: String  = "",
@@ -76,7 +76,7 @@ class Classifier (assetManager: AssetManager, modelPath: String, labelPath: Stri
 
         val pq = PriorityQueue (
             MAX_RESULTS, kotlin.Comparator<Classifier.Recognition> {
-                (_,_,confidence1), (_,_, confidence2) -> confidence1.compareTo(confidence2)
+                (_,_,confidence1), (_,_, confidence2) -> confidence2.compareTo(confidence1)
             } )
         for (i in labelList.indices) {
             val confidence = labelProbArray[0][i]
@@ -90,6 +90,7 @@ class Classifier (assetManager: AssetManager, modelPath: String, labelPath: Stri
         for (i in 0 until recognitionsSize) {
             recognitions?.add(pq.poll())
         }
+        Log.d("test", recognitions.size.toString())
         return recognitions
 
     }

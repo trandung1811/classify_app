@@ -4,6 +4,7 @@ Airedale Terrier
 American Staffordshire Terrier
 Appenzeller Sennenhund
 Australian Terrier
+Bac Ha Dog
 Bedlington Terrier
 Bernese Mountain Dog
 Blenheim Spaniel
@@ -30,6 +31,7 @@ Gordon Setter
 Great Dane
 Great Pyrenees
 Greater Swiss Mountain Dog
+H'Mong Coc Duoi
 Ibizan hound
 Irish Setter
 Irish Terrier
@@ -39,6 +41,7 @@ Italian Greyhound
 Japanese Spaniel
 Kerry Blue Terrier
 Labrador Retriever
+Lai Song Ma Dog
 Lakeland Terrier
 Leonberger
 Lhasa Apso
@@ -51,6 +54,7 @@ Norwich Terrier
 Old English Sheepdog
 Pekinese
 Pembroke Welsh Corgi
+Phu Quoc Dog
 Pomeranian Dog
 Rhodesian Ridgeback
 Rottweiler
@@ -67,6 +71,7 @@ Staffordshire Bull Terrier
 Sussex Spaniel
 Tibetan Mastiff
 Tibetan Terrier
+Vang dog
 Treeing Walker Coonhound
 Weimaraner
 Welsh Springer Spaniel
@@ -84,7 +89,7 @@ Boxer Dog
 Briard
 Bull Mastiff
 Cairn Terrier
-Chow Chow (dog)
+Chow Chow
 Clumber Spaniel
 Cocker Spaniel
 Collie
