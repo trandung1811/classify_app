@@ -97,6 +97,7 @@ class historyViewMainActivity : AppCompatActivity() {
             Picasso.with(this).load(link_list[position]).into(hisDogImageView)
         }
 
+        btnHisExplore.text = result
         btnHisExplore.setOnClickListener {
             val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result)
@@ -115,6 +116,7 @@ class historyViewMainActivity : AppCompatActivity() {
             Picasso.with(this).load(link_list[position_1]).into(hisDogImageView_1)
         }
 
+        btnHisExplore_1.text = result_1
         btnHisExplore_1.setOnClickListener {
             val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result_1)
@@ -130,9 +132,10 @@ class historyViewMainActivity : AppCompatActivity() {
             }
         }
         if (position_2 != 200) {
-            Picasso.with(this).load(link_list[position]).into(hisDogImageView_2)
+            Picasso.with(this).load(link_list[position_2]).into(hisDogImageView_2)
         }
 
+        btnHisExplore_2.text = result_2
         btnHisExplore_2.setOnClickListener {
             val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result_2)
