@@ -1,7 +1,9 @@
 Afghan Hound
-African Hunting Dog
+African wild dog
 Airedale Terrier
-American Staffordshire
+Akita (dog)
+Alabai
+American Staffordshire Terrier
 Appenzeller Sennenhund
 Australian Terrier
 Bac Ha Dog
@@ -46,7 +48,7 @@ Lakeland Terrier
 Leonberger
 Lhasa Apso
 Maltese Dog
-Xoloitzcuintle (Mexican hairless dog)
+Xoloitzcuintle
 Newfoundland Dog
 Norfolk Terrier
 Norwegian Elkhound
@@ -65,6 +67,7 @@ Scotch Terrier
 Scottish Deerhound
 Sealyham Terrier
 Shetland Sheepdog
+Shiba Inu
 Shih Tzu
 Siberian Husky
 Staffordshire Bull Terrier

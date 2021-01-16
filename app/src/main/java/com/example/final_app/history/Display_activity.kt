@@ -1,5 +1,6 @@
-package com.example.final_app
+package com.example.final_app.history
 
+import android.content.res.AssetManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageButton
+import com.example.final_app.R
 import java.util.*
 
 class display_activity : AppCompatActivity() {
@@ -30,11 +32,25 @@ class display_activity : AppCompatActivity() {
         webView = findViewById(R.id.disWebView)
         webView.webViewClient = WebViewClient()
 
+        var mLabelPath_1 = "dog_label_vi.txt"
+        var mLabelPath_2 = "dog_label.txt"
+
+        var dogList_1 = loadLabelList(assets, mLabelPath_1)
+        var dogList_2 = loadLabelList(assets, mLabelPath_2)
+
         val bundle = intent.extras
         if (bundle != null) {
+
+            var dogName = bundle.getString("display_name")
+            var check = bundle.getInt("check")
+            var pos = bundle.getInt("pos")
+
             var locale = Locale.getDefault()
+
             if (locale.toString() == "vi_GB") {
-                var dogName = bundle.getString("dog_name")
+                if (check == 1) {
+                    dogName = dogList_1[pos]
+                }
                 if (dogName == "Chó Bắc Hà") {
                     webView.loadUrl("https://wikipet.vn/cho-bac-ha")
                 } else if (dogName == "Chó Mông Cộc") {
@@ -44,11 +60,33 @@ class display_activity : AppCompatActivity() {
                 } else if (dogName == "Chó Phú Quốc") {
                     webView.loadUrl("https://wikipet.vn/cho-phu-quoc")
                 } else {
-                    webView.loadUrl("https://vi.m.wikipedia.org/wiki/" + bundle.getString("dog_name"))
+                    webView.loadUrl("https://vi.m.wikipedia.org/wiki/" + dogName)
                 }
             } else {
-                webView.loadUrl("https://en.m.wikipedia.org/wiki/" + bundle.getString("dog_name"));
+                if (check == 0) {
+                    dogName = dogList_2[pos]
+                }
+                webView.loadUrl("https://en.m.wikipedia.org/wiki/" + dogName);
             }
         }
+    }
+    private fun findDogName(dogName: String, dogList_1: List<String>, dogList_2: List<String>): Int {
+
+
+        var position = 200
+        for (i in 0 until dogList_1.size) {
+            if (dogList_1[i] ==  dogName) {
+               return i
+            }
+        }
+        for (i in 0 until dogList_2.size) {
+                if (dogList_1[i] ==  dogName) {
+                    return i
+                }
+            }
+        return position
+    }
+    private fun loadLabelList(assetManager: AssetManager, labelPath: String): List<String> {
+        return assetManager.open(labelPath).bufferedReader().useLines { it.toList() }
     }
 }

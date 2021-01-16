@@ -14,7 +14,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.final_app.R
-import com.example.final_app.display_activity
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -84,21 +83,22 @@ class historyViewMainActivity : AppCompatActivity() {
         hisExplore.text = getString(R.string.information)
 
         // new section
-        var mLabelPath = ""
-        var locale = Locale.getDefault()
-        if (locale.toString() == "vi_GB") {
-             mLabelPath = "dog_label_vi.txt"
-        }
-        else {
-             mLabelPath = "dog_label.txt"
-        }
-        var label_list = loadLabelList(assets, mLabelPath)
+
+        var label_list_1 = loadLabelList(assets,"dog_label_vi.txt" )
+        var label_list_2 = loadLabelList(assets, "dog_label.txt")
         var link_list = loadLabelList(assets, "DogBreedList.txt")
 
         var position: Int = 200
-        for (i in 0 until label_list.size) {
-            if (result == label_list[i]) {
+        var check2 = -1
+        for (i in label_list_1.indices) {
+            if (result == label_list_1[i]) {
                 position = i
+                check2 = 0
+                break
+            }
+            if (result == label_list_2[i]) {
+                position = i
+                check2 = 1
                 break
             }
         }
@@ -110,14 +110,23 @@ class historyViewMainActivity : AppCompatActivity() {
         btnHisExplore.setOnClickListener {
             val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result)
+            intent.putExtra("check",check2)
+            intent.putExtra("pos",position)
             startActivity(intent)
         }
 
 
         var position_1: Int = 200
-        for (i in 0 until label_list.size) {
-            if (result_1 == label_list[i]) {
+        var check_ = -1
+        for (i in label_list_1.indices) {
+            if (result_1 == label_list_1[i]) {
                 position_1 = i
+                check_ = 0
+                break
+            }
+            if (result_1 == label_list_2[i]) {
+                position_1 = i
+                check_ = 1
                 break
             }
         }
@@ -129,14 +138,23 @@ class historyViewMainActivity : AppCompatActivity() {
         btnHisExplore_1.setOnClickListener {
             val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result_1)
+            intent.putExtra("check",check_)
+            intent.putExtra("pos",position_1)
             startActivity(intent)
         }
 
 
         var position_2: Int = 200
-        for (i in 0 until label_list.size) {
-            if (result_2 == label_list[i]) {
+        var check: Int = -1
+        for (i in label_list_1.indices) {
+            if (result_2 == label_list_1[i]) {
                 position_2 = i
+                check = 0
+                break
+            }
+            if (result_2 == label_list_2[i]) {
+                position_2 = i
+                check = 1
                 break
             }
         }
@@ -148,6 +166,8 @@ class historyViewMainActivity : AppCompatActivity() {
         btnHisExplore_2.setOnClickListener {
             val intent = Intent(this, display_activity::class.java)
             intent.putExtra("display_name", result_2)
+            intent.putExtra("check",check)
+            intent.putExtra("pos",position_2)
             startActivity(intent)
         }
         //Creat image

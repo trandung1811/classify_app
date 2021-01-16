@@ -1,6 +1,8 @@
 Afghan Hound
 Chó Africanis
 Chó sục Airedale
+Akita Inu
+Alabai
 American Staffordshire Terrier
 Chó Appenzeller
 Chó sục Úc
@@ -65,6 +67,7 @@ Chó sục Scotland
 Chó săn hươu Scotland
 Chó sục Sealyham
 Chó chăn cừu Shetland
+Shiba Inu
 Shih Tzu
 Chó Husky Sibir
 Chó sục bò Staffordshire
