@@ -15,7 +15,7 @@ import kotlin.collections.ArrayList
 
 class exploreActivity : AppCompatActivity() {
 
-    private  val mLabelPath = "dog_label.txt"
+    private  lateinit var mLabelPath: String
     private val mLink = "DogBreedList.txt"
     private  var label_list: ArrayList<dataExplore> = ArrayList()
     private  var displayList: ArrayList<dataExplore> = ArrayList()
@@ -36,6 +36,14 @@ class exploreActivity : AppCompatActivity() {
         btnGoToHis.visibility = View.INVISIBLE
         btnRateUs.visibility = View.INVISIBLE
 
+        var locale = Locale.getDefault()
+        if (locale.toString() == "vi_GB") {
+            mLabelPath = "dog_label_vi.txt"
+        }
+        else {
+            mLabelPath = "dog_label.txt"
+        }
+        
         var sub_label_list = loadLabelList(assets, mLabelPath)
         var sub_link_list = loadLabelList(assets, mLink)
         for (i in 0 until sub_label_list.size) {

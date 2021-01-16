@@ -32,12 +32,14 @@
 
     <TextView
         android:id="@+id/resultAcc"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="#589C96"
+        android:textSize="12sp"
         android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/constTextView"
         app:layout_constraintTop_toBottomOf="@+id/resultName" />
 
@@ -187,26 +189,31 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/your_dog_looks"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/resultName"
         app:layout_constraintTop_toBottomOf="@+id/resultName" />
 
     <TextView
         android:id="@+id/resultAcc_1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textStyle="italic"
         android:textColor="#589C96"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/resultAcc"
         app:layout_constraintTop_toBottomOf="@+id/resultAcc" />
 
     <TextView
         android:id="@+id/resultAcc_2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textStyle="italic"
         android:textColor="#589C96"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/resultAcc_1"
         app:layout_constraintTop_toBottomOf="@+id/resultAcc_1" />
 

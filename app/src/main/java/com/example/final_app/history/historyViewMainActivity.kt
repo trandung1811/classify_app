@@ -17,6 +17,7 @@ import com.example.final_app.R
 import com.example.final_app.display_activity
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 class historyViewMainActivity : AppCompatActivity() {
 
@@ -83,7 +84,15 @@ class historyViewMainActivity : AppCompatActivity() {
         hisExplore.text = getString(R.string.information)
 
         // new section
-        var label_list = loadLabelList(assets, "dog_label.txt")
+        var mLabelPath = ""
+        var locale = Locale.getDefault()
+        if (locale.toString() == "vi_GB") {
+             mLabelPath = "dog_label_vi.txt"
+        }
+        else {
+             mLabelPath = "dog_label.txt"
+        }
+        var label_list = loadLabelList(assets, mLabelPath)
         var link_list = loadLabelList(assets, "DogBreedList.txt")
 
         var position: Int = 200

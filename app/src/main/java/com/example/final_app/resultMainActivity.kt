@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.util.*
 
 class resultMainActivity : AppCompatActivity() {
     private lateinit var predictedResult: TextView
@@ -109,7 +110,15 @@ class resultMainActivity : AppCompatActivity() {
 
         }
         // new section
-        var label_list = loadLabelList(assets, "dog_label.txt")
+        var locale = Locale.getDefault()
+        var mLabelPath = ""
+        if (locale.toString() == "vi_GB") {
+            mLabelPath = "dog_label_vi.txt"
+        }
+        else {
+            mLabelPath = "dog_label.txt"
+        }
+        var label_list = loadLabelList(assets, mLabelPath)
         var link_list = loadLabelList(assets, "DogBreedList.txt")
 
         var position: Int = 200

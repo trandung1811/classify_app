@@ -40,10 +40,11 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), onItemClickListener {
     //variable for tensorflow model
+
     private  val mInputsize = 224
     private  val mModelPath = "dog_nasnet_mobile_model.tflite"
-    private  val mLabelPath = "dog_label.txt"
 
+    private lateinit var mLabelPath: String
     //Declare companion object
     companion object {
         val MY_CAMERA_REQUEST_CODE = 7171
@@ -71,6 +72,13 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        var locale = Locale.getDefault()
+        if (locale.toString() == "vi_GB") {
+              mLabelPath = "dog_label_vi.txt"
+        }
+        else {
+             mLabelPath = "dog_label.txt"
+        }
         // custom action bar
         val mActionBar = supportActionBar
         mActionBar?.setDisplayShowHomeEnabled(false)
@@ -380,7 +388,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             mPost.add(Model(createImageFromBitmap(bitmap_1), "Toy Poodle", "100", "Unknown", "0", "Unknown", "0", date))
             mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100","Unknown", "0", "Unknown", "0", date))
             mPost.add(Model(createImageFromBitmap(bitmap_2), "Siberian Husky", "100","Unknown", "0", "Unknown", "0", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaskan Malamute", "100","Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaska Malamute", "100","Unknown", "0", "Unknown", "0", date))
             return mPost
         } else {
             return post

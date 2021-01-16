@@ -29,16 +29,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/historyMainView" />
 
-        <TextView
-            android:id="@+id/hisTextView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textStyle="italic"
-            android:textColor="#589C96"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/historyMainName" />
+    <TextView
+        android:id="@+id/hisTextView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#589C96"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/historyMainName" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -166,33 +168,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/your_dog_looks"
-            app:layout_constraintStart_toStartOf="@+id/historyMainName"
-            app:layout_constraintTop_toBottomOf="@+id/historyMainName" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/your_dog_looks"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/historyMainName"
+        app:layout_constraintTop_toBottomOf="@+id/historyMainName" />
 
-        <TextView
-            android:id="@+id/hisTextView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textStyle="italic"
-            android:textColor="#589C96"
-            app:layout_constraintStart_toStartOf="@+id/hisTextView2"
-            app:layout_constraintTop_toBottomOf="@+id/hisTextView2" />
+    <TextView
+        android:id="@+id/hisTextView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#589C96"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/hisTextView2"
+        app:layout_constraintTop_toBottomOf="@+id/hisTextView2" />
 
-        <TextView
-            android:id="@+id/hisTextView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textStyle="italic"
-            android:textColor="#589C96"
-            app:layout_constraintStart_toStartOf="@+id/hisTextView3"
-            app:layout_constraintTop_toBottomOf="@+id/hisTextView3" />
+    <TextView
+        android:id="@+id/hisTextView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#589C96"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/hisTextView3"
+        app:layout_constraintTop_toBottomOf="@+id/hisTextView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
