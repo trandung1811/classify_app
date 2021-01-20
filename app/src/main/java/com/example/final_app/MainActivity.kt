@@ -8,18 +8,19 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.final_app.bmi.bmiActivity
 import com.example.final_app.explore.exploreActivity
 import com.example.final_app.interfer.onItemClickListener
 import com.example.final_app.model.Model
 import com.example.final_app.recyclerview.PostsAdapter
 import com.example.final_app.recyclerview.historyMainActivity
+import com.example.final_app.result.resultMainActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.karumi.dexter.Dexter
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     private lateinit var btnExplore: Button
     private lateinit var btnHelp: Button
     private lateinit var aboutUs: Button
+    private lateinit var btnBmi: ImageButton
     private lateinit var predictedResult: String
     private lateinit var confidence: String
     private lateinit var predictedResult_1: String
@@ -72,6 +74,7 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // find dog name based on locale
         var locale = Locale.getDefault()
         if (locale.toString() == "vi_GB") {
               mLabelPath = "dog_label_vi.txt"
@@ -112,7 +115,6 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         }
 
         //recycle view
-
         post = loadData()
         saveData(post)
         var recycleView: RecyclerView = findViewById(R.id.recyclerView)
@@ -180,6 +182,12 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                     )
                 )
             }
+        }
+        // BMI button
+        btnBmi = findViewById(R.id.btnBMI)
+        btnBmi.setOnClickListener {
+            val intent = Intent(this, bmiActivity::class.java)
+            startActivity(intent)
         }
     }
 

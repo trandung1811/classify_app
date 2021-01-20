@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.final_app">
 
-    <uses-feature android:name="android.hardware.camera2"
-                  android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -16,14 +18,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_app">
-        <activity android:name=".instruction"></activity>
+        <activity android:name=".bmi.bmiActivity"></activity>
+        <activity android:name=".result.resultDisplay" />
+        <activity android:name=".instruction" />
         <activity android:name=".history.display_activity" />
         <activity android:name=".explore.detailActivity" />
         <activity android:name=".explore.exploreActivity" />
         <activity android:name=".history.historyViewMainActivity" />
         <activity android:name=".recyclerview.historyMainActivity" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
-        <activity android:name=".resultMainActivity" />
+        <activity android:name=".result.resultMainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

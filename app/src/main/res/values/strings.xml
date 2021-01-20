@@ -18,4 +18,13 @@
     <string name="option">Select Option</string>
     <string name="save">Save</string>
     <string name="your_dog_looks">Your dog looks like</string>
+    <string name="bmi">Calculating BMI for your dog:</string>
+    <string name="bmi_explain">To determine your dog BMI, you will need to enter their breed, sex, weight and height below. Click calculate to receive your dog\'s BMI results.</string>
+    <string name="calculate_bmi">BMI Calculator</string>
+    <string name="select_a_breed">Select a breed:</string>
+    <string name="sex">Sex:</string>
+    <string name="weight">Weight:</string>
+    <string name="select_unit_in_the_drop_down">Select unit in the drop down</string>
+    <string name="height_measured_to_shoulder">Height (Measured to shoulder):</string>
+    <string name="calculate">Calculate</string>
 </resources>
