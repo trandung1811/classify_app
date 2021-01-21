@@ -70,22 +70,6 @@ class display_activity : AppCompatActivity() {
             }
         }
     }
-    private fun findDogName(dogName: String, dogList_1: List<String>, dogList_2: List<String>): Int {
-
-
-        var position = 200
-        for (i in 0 until dogList_1.size) {
-            if (dogList_1[i] ==  dogName) {
-               return i
-            }
-        }
-        for (i in 0 until dogList_2.size) {
-                if (dogList_1[i] ==  dogName) {
-                    return i
-                }
-            }
-        return position
-    }
     private fun loadLabelList(assetManager: AssetManager, labelPath: String): List<String> {
         return assetManager.open(labelPath).bufferedReader().useLines { it.toList() }
     }

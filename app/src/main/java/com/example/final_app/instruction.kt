@@ -32,7 +32,7 @@ class instruction : AppCompatActivity(), OnPageChangeListener, OnLoadCompleteLis
         btnRateUs.visibility = View.INVISIBLE
 
         //display pdf
-         pdfFileName = "introduction.pdf"
+         pdfFileName = "instruction.pdf"
          pageNumber = 0
         helpView = findViewById(R.id.pdfView)
         helpView.fromAsset(pdfFileName)

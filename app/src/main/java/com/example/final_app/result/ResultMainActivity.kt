@@ -6,6 +6,7 @@ import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -14,6 +15,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.final_app.R
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.squareup.picasso.Picasso
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -36,11 +43,40 @@ class resultMainActivity : AppCompatActivity() {
     private lateinit var btnShare: Button
     private lateinit var btnExplore_1: Button
     private lateinit var btnExplore_2: Button
-
+    private var mInterstitialAd: InterstitialAd? = null
+    private var TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+        //ads
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,"ca-app-pub-3924650906279453~7081555116", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError?.message);
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "Ad was loaded.");
+                mInterstitialAd = interstitialAd
+            }
+        })
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                Log.d(TAG, "Ad was dismissed.");
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                Log.d(TAG, "Ad failed to show.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                Log.d(TAG, "Ad showed fullscreen content.");
+                mInterstitialAd = null
+            }
+        }
         // custom action bar
         val mActionBar = supportActionBar
         mActionBar?.setDisplayShowHomeEnabled(false)
@@ -176,6 +212,11 @@ class resultMainActivity : AppCompatActivity() {
         //Create image
 
         btnShare.setOnClickListener {
+            if (mInterstitialAd != null) {
+                mInterstitialAd!!.show(this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
             val paint = Paint()
             val height: Float = paint.measureText("yY")
             val bitHeight = bitmap.height

@@ -19,5 +19,30 @@
     <string name="option">Lựa Chọn</string>
     <string name="save">Lưu</string>
     <string name="your_dog_looks">Chó của bạn giống với </string>
+    <string name="bmi"> Tính Chỉ số BMI cho chó của bạn </string>
+    <string name="bmi_explain"> Để xác định chỉ số BMI, bạn cần phải nhập vào giống chó, chiều cao và cân nặng. Sau đó click vào "Tính" để nhận kết quả </string>
+    <string name="select_a_breed"> Chọn giống chó </string>
+    <string name="sex"> Giới Tính </string>
+    <string name="weight"> Cân nặng </string>
+    <string name="select_unit_in_the_drop_down"> Chọn đơn vị đo bên cạnh </string>
+    <string name="height_measured_to_shoulder"> Chiều cao (Tính đến vai) </string>
+    <string name="calculate"> Tính </string>
+    <string name="male"> Đực </string>
+    <string name="female"> Cái </string>
+    <string name="underweight"> Thiếu Cân </string>
+    <string name="over_weight"> Thừa Cân </string>
+    <string name="correct_weight"> Đạt Chuẩn </string>
+    <string name="ideal_bmi"> Chỉ số BMI lý tưởng của </string>
+    <string name="enter_height"> Bạn đã nhập chiều cao là  </string>
+    <string name="you_entered_weight_as"> Bạn đã nhập cân nặng là </string>
+    <string name="your_dog_can_be_overweight"> CHÚ CHÓ CỦA BẠN CÓ THỂ BỊ THỪA CÂN </string>
+    <string name="bmi_calcultated"> Chỉ số BMI được tính toán là </string>
+    <string name="under_weight"> CHÚ CHÓ CỦA BẠN CÓ THỂ BỊ THIẾU CÂN </string>
+    <string name="good_weight"> CHÚ CHÓ CỦA BẠN Ở MỨC CÂN ĐỐI </string>
+    <string name="b"> Dưới </string>
+    <string name="o"> Hơn </string>
+    <string name="between"> Ở Giữa </string>
+    <string name="and"> Và </string>
+    <string name="recalculate"> Tính Lại </string>
 
 </resources>

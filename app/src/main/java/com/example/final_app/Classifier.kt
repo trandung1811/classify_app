@@ -90,7 +90,7 @@ class Classifier (assetManager: AssetManager, modelPath: String, labelPath: Stri
         for (i in 0 until recognitionsSize) {
             recognitions?.add(pq.poll())
         }
-        Log.d("test", recognitions.size.toString())
+      //  Log.d("test", recognitions.size.toString())
         return recognitions
 
     }

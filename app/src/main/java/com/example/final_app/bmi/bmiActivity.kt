@@ -1,14 +1,19 @@
 package com.example.final_app.bmi
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.res.AssetManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.final_app.R
+import com.example.final_app.recyclerview.historyMainActivity
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 
 class bmiActivity : AppCompatActivity() {
@@ -25,6 +30,7 @@ class bmiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bmi)
 
+        // custom action bar
         // custom action bar
         val mActionBar = supportActionBar
         mActionBar?.setDisplayShowHomeEnabled(false)
@@ -65,8 +71,8 @@ class bmiActivity : AppCompatActivity() {
 
         spinner_3 = findViewById(R.id.weghtSpinner)
         var weightUnit = ArrayList<String>()
-        weightUnit.add("lbs")
         weightUnit.add("kg")
+        weightUnit.add("lbs")
         val adapter_3: ArrayAdapter<String> =
             ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, weightUnit)
         adapter_3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -74,9 +80,9 @@ class bmiActivity : AppCompatActivity() {
 
         spinner_4 = findViewById(R.id.heightSpinner)
         var heightUnit = ArrayList<String>()
-        heightUnit.add("Inches")
         heightUnit.add("Centimetres")
         heightUnit.add("Metres")
+        heightUnit.add("Inches")
         val adapter_4: ArrayAdapter<String> =
             ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,heightUnit)
         adapter_4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -94,6 +100,8 @@ class bmiActivity : AppCompatActivity() {
             var hUnit = spinner_4.selectedItem.toString()
             var wValue = wTextView.text.toString()
             var hValue = hTexView.text.toString()
+            var w_1 = wValue
+            var h_1 = hValue
             if (wValue == "") {
                 Toast.makeText(this, "Please enter the correct weight", Toast.LENGTH_SHORT).show()
             } else if (hValue == "") {
@@ -117,11 +125,16 @@ class bmiActivity : AppCompatActivity() {
                 var height = hValue.toFloat()
                 var weight = wValue.toFloat()
                 var bmiIndex = weight/(height * height)
-                Toast.makeText(
-                    this,
-                    "$breed + $dogSex + $bmiIndex",
-                    Toast.LENGTH_SHORT
-                ).show()
+                var bmiIndex_1 = bmiIndex.roundToInt().toString()
+                val intent = Intent(this, detailBMi::class.java)
+                intent.putExtra("Breed", breed)
+                intent.putExtra("sex",dogSex)
+                intent.putExtra("bmi",bmiIndex_1)
+                intent.putExtra("weight", w_1)
+                intent.putExtra("height", h_1)
+                intent.putExtra("wUnit", wUnit)
+                intent.putExtra("hUnit", hUnit)
+                startActivity(intent)
             }
         }
 

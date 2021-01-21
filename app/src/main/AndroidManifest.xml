@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Final_app">
-        <activity android:name=".bmi.bmiActivity"></activity>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3924650906279453~7081555116"/>
+        <activity android:name=".bmi.detailBMi"></activity>
+        <activity android:name=".bmi.bmiActivity" />
         <activity android:name=".result.resultDisplay" />
         <activity android:name=".instruction" />
         <activity android:name=".history.display_activity" />

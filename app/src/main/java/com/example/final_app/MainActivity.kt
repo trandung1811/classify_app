@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageButton
@@ -21,6 +22,9 @@ import com.example.final_app.model.Model
 import com.example.final_app.recyclerview.PostsAdapter
 import com.example.final_app.recyclerview.historyMainActivity
 import com.example.final_app.result.resultMainActivity
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.karumi.dexter.Dexter
@@ -33,6 +37,7 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Math.random
 import java.lang.Math.round
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,11 +73,42 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     private lateinit var predictedResult_2: String
     private lateinit var confidence_2: String
     private lateinit var bitmap: Bitmap
-
     private lateinit var post: ArrayList<Model>
+    private var mInterstitialAd: InterstitialAd? = null
+    private var TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //mobile ads
+
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,"ca-app-pub-3924650906279453~7081555116", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError?.message);
+               mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "Ad was loaded.");
+                mInterstitialAd = interstitialAd
+            }
+        })
+        mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+            override fun onAdDismissedFullScreenContent() {
+                Log.d(TAG, "Ad was dismissed.");
+            }
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                Log.d(TAG, "Ad failed to show.")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                Log.d(TAG, "Ad showed fullscreen content.");
+                mInterstitialAd = null
+            }
+        }
 
         // find dog name based on locale
         var locale = Locale.getDefault()
@@ -126,6 +162,11 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         btnTakeImage = findViewById(R.id.btnScan)
         btnTakeImage.setOnClickListener {
 
+                if (mInterstitialAd != null) {
+                    mInterstitialAd!!.show(this@MainActivity);
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                }
             Dexter.withContext(this)
                 .withPermissions(
                     listOf(
@@ -137,7 +178,9 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                     override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
                         if (p0!!.areAllPermissionsGranted()) {
 
+
                             selectImage()
+
 
                         }
                     }
@@ -186,6 +229,12 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         // BMI button
         btnBmi = findViewById(R.id.btnBMI)
         btnBmi.setOnClickListener {
+
+            if (mInterstitialAd != null) {
+                mInterstitialAd!!.show(this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
             val intent = Intent(this, bmiActivity::class.java)
             startActivity(intent)
         }
@@ -254,20 +303,24 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             }
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
             val result = CropImage.getActivityResult(data)
             if (resultCode == Activity.RESULT_OK) {
                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, result.uri)
                 fileName = createImageFromBitmap(bitmap)
                 val result = classifier.recognizeImage(bitmap)
-                if (!result.isEmpty()) {
+                if (result.isNotEmpty()) {
 
+                    if (result.size == 1) {
+
+                    }
                     predictedResult = result[0].title
                     val float: Float = result[0].confidence
                     var convertFloat = round(float * 10000) / 100
                     if (convertFloat < 90) {
                         convertFloat = convertFloat + 10
                     }
-                    if (convertFloat > 20) {
+                    if (convertFloat > 35) {
                         confidence = convertFloat.toString()
                         predictedResult_1 = result[1].title
                         val float_1: Float = result[1].confidence
@@ -314,6 +367,11 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         }
         if (requestCode == UPDATE_CODE) {
             if (resultCode == RESULT_OK) {
+                if (mInterstitialAd != null) {
+                    mInterstitialAd!!.show(this);
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                }
                 val date: String =
                     SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
                 post.add(0, Model(createImageFromBitmap(bitmap), predictedResult, confidence, predictedResult_1,
