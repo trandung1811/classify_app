@@ -214,14 +214,14 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$packageName")
+                        Uri.parse("https://thegioidoday2.home.blog")
                     )
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                        Uri.parse("https://thegioidoday2.home.blog")
                     )
                 )
             }
