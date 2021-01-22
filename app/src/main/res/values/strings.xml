@@ -43,4 +43,6 @@
     <string name="between">Between</string>
     <string name="and">and</string>
     <string name="recalculate">Recalculate</string>
+    <string name="enter_weight">Please enter the correct weight</string>
+    <string name="e_height">Please enter the correct height</string>
 </resources>

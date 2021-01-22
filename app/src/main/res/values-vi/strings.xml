@@ -44,5 +44,7 @@
     <string name="between"> Ở Giữa </string>
     <string name="and"> Và </string>
     <string name="recalculate"> Tính Lại </string>
+    <string name="enter_weight"> Bạn phải nhập dữ liệu trước </string>
+    <string name="e_height"> Bạn phải nhập dữ liệu trước </string>
 
 </resources>

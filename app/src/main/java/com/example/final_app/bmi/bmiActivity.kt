@@ -103,9 +103,9 @@ class bmiActivity : AppCompatActivity() {
             var w_1 = wValue
             var h_1 = hValue
             if (wValue == "") {
-                Toast.makeText(this, "Please enter the correct weight", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.enter_weight), Toast.LENGTH_SHORT).show()
             } else if (hValue == "") {
-                Toast.makeText(this, "Please enter the correct height", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.e_height), Toast.LENGTH_SHORT).show()
             } else {
                 if (wUnit == "lbs") {
                     var temp1 = wValue.toFloat()

@@ -32,6 +32,7 @@ class display_activity : AppCompatActivity() {
         webView = findViewById(R.id.disWebView)
         webView.webViewClient = WebViewClient()
 
+        //display
         var mLabelPath_1 = "dog_label_vi.txt"
         var mLabelPath_2 = "dog_label.txt"
 

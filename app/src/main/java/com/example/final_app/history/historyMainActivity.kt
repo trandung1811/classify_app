@@ -44,26 +44,21 @@ class historyMainActivity : AppCompatActivity(), onItemClickListener {
 
         InterstitialAd.load(this,"ca-app-pub-3924650906279453~7081555116", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError?.message);
                 mInterstitialAd = null
             }
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.d(TAG, "Ad was loaded.");
                 mInterstitialAd = interstitialAd
             }
         })
         mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
-                Log.d(TAG, "Ad was dismissed.");
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                Log.d(TAG, "Ad failed to show.")
             }
 
             override fun onAdShowedFullScreenContent() {
-                Log.d(TAG, "Ad showed fullscreen content.");
                 mInterstitialAd = null
             }
         }

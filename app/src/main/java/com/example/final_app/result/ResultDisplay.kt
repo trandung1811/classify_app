@@ -28,6 +28,7 @@ class resultDisplay : AppCompatActivity() {
         btnGoToHis.visibility = View.INVISIBLE
         btnRateUs.visibility = View.INVISIBLE
 
+        //webView
         webView = findViewById(R.id.resWebView)
         webView.webViewClient = WebViewClient()
 

@@ -6,12 +6,17 @@ import android.content.*
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.ImageButton
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,7 +42,6 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.Math.random
 import java.lang.Math.round
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,10 +50,8 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), onItemClickListener {
     //variable for tensorflow model
-
     private  val mInputsize = 224
     private  val mModelPath = "dog_nasnet_mobile_model.tflite"
-
     private lateinit var mLabelPath: String
     //Declare companion object
     companion object {
@@ -76,18 +78,17 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     private lateinit var post: ArrayList<Model>
     private var mInterstitialAd: InterstitialAd? = null
     private var TAG = "MainActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //mobile ads
-
         var adRequest = AdRequest.Builder().build()
-
-        InterstitialAd.load(this,"ca-app-pub-3924650906279453~7081555116", adRequest, object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, "ca-app-pub-3924650906279453~7081555116", adRequest, object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, adError?.message);
-               mInterstitialAd = null
+                mInterstitialAd = null
             }
 
             override fun onAdLoaded(interstitialAd: InterstitialAd) {
@@ -97,15 +98,12 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         })
         mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
-                Log.d(TAG, "Ad was dismissed.");
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                Log.d(TAG, "Ad failed to show.")
             }
 
             override fun onAdShowedFullScreenContent() {
-                Log.d(TAG, "Ad showed fullscreen content.");
                 mInterstitialAd = null
             }
         }
@@ -127,7 +125,6 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         mActionBar?.setDisplayShowCustomEnabled(true)
         val btnRateUs: ImageButton = findViewById(R.id.btnRate)
         val btnGoToHis: ImageButton = findViewById(R.id.btn_history)
-
         btnGoToHis.setOnClickListener {
             val intent = Intent(this, historyMainActivity::class.java)
             startActivity(intent)
@@ -135,17 +132,17 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         btnRateUs.setOnClickListener {
             try {
                 startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$packageName")
-                    )
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=$packageName")
+                        )
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
-                    )
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("http://play.google.com/store/apps/details?id=$packageName")
+                        )
                 )
             }
         }
@@ -169,29 +166,29 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                 }
             Dexter.withContext(this)
                 .withPermissions(
-                    listOf(
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        android.Manifest.permission.CAMERA
-                    )
+                        listOf(
+                                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                android.Manifest.permission.CAMERA
+                        )
                 ).withListener(object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
-                        if (p0!!.areAllPermissionsGranted()) {
+                        override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
+                            if (p0!!.areAllPermissionsGranted()) {
 
 
-                            selectImage()
+                                selectImage()
 
 
+                            }
                         }
-                    }
 
-                    override fun onPermissionRationaleShouldBeShown(
-                        p0: MutableList<PermissionRequest>?,
-                        p1: PermissionToken?
-                    ) {
-                        p1!!.continuePermissionRequest()
-                    }
-                }).check()
+                        override fun onPermissionRationaleShouldBeShown(
+                                p0: MutableList<PermissionRequest>?,
+                                p1: PermissionToken?
+                        ) {
+                            p1!!.continuePermissionRequest()
+                        }
+                    }).check()
 
         }
         //setting explore view
@@ -203,26 +200,62 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
         //help view
         btnHelp = findViewById(R.id.helpTextView)
         btnHelp.setOnClickListener {
-            val intent = Intent(this, instruction::class.java)
-            startActivity(intent)
-        }
 
+            val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val view = inflater.inflate(R.layout.popupvideo, null)
+            val popupWindow = PopupWindow(view,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT)
+            // Set an elevation for the popup window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                popupWindow.elevation = 10.0F
+            }
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                val slideIn = Slide()
+                slideIn.slideEdge = Gravity.TOP
+                popupWindow.enterTransition = slideIn
+                val slideOut = Slide()
+                slideOut.slideEdge = Gravity.RIGHT
+                popupWindow.exitTransition = slideOut
+
+            }
+            val btnClose = view.findViewById<Button>(R.id.closeButton)
+            btnClose.setOnClickListener {
+                popupWindow.dismiss()
+            }
+            popupWindow.setOnDismissListener {
+            }
+            val videoView = view.findViewById<VideoView>(R.id.videoView)
+            val path = "android.resource://" + packageName + "/" + R.raw.instrucvideo
+            videoView.setVideoURI(Uri.parse(path))
+            videoView.start()
+            videoView.requestFocus()
+            var root_view = findViewById<ViewGroup>(R.id.root_element)
+            TransitionManager.beginDelayedTransition(root_view)
+            popupWindow.showAtLocation(
+                    root_view,
+                    Gravity.CENTER,
+                    0,
+                    0
+            )
+        }
         //About us button
         aboutUs = findViewById(R.id.btnAboutUs)
         aboutUs.setOnClickListener {
             try {
                 startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://thegioidoday2.home.blog")
-                    )
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://sites.google.com/view/dog-breed181194/trang-chủ")
+                        )
                 )
             } catch (e: ActivityNotFoundException) {
                 startActivity(
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://thegioidoday2.home.blog")
-                    )
+                        Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://sites.google.com/view/dog-breed181194/trang-chủ")
+                        )
                 )
             }
         }
@@ -249,9 +282,9 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
     //working with camera and model
     private fun selectImage() {
         val options = arrayOf<CharSequence>(
-            getString(R.string.take_photo), getString(R.string.gallery), getString(
+                getString(R.string.take_photo), getString(R.string.gallery), getString(
                 R.string.cancel
-            )
+        )
         )
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.option))
@@ -260,8 +293,8 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
                 dialog.dismiss()
                 val values = ContentValues()
                 imageUri = contentResolver.insert(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                    values
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        values
                 )!!
                 val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
@@ -452,9 +485,9 @@ class MainActivity : AppCompatActivity(), onItemClickListener {
             val date: String =
                 SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
             mPost.add(Model(createImageFromBitmap(bitmap_1), "Toy Poodle", "100", "Unknown", "0", "Unknown", "0", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100","Unknown", "0", "Unknown", "0", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_2), "Siberian Husky", "100","Unknown", "0", "Unknown", "0", date))
-            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaska Malamute", "100","Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_3), "Pembroke Welsh Corgi", "100", "Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_2), "Siberian Husky", "100", "Unknown", "0", "Unknown", "0", date))
+            mPost.add(Model(createImageFromBitmap(bitmap_4), "Alaska Malamute", "100", "Unknown", "0", "Unknown", "0", date))
             return mPost
         } else {
             return post

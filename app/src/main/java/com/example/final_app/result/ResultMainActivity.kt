@@ -27,6 +27,7 @@ import java.io.File
 import java.util.*
 
 class resultMainActivity : AppCompatActivity() {
+
     private lateinit var predictedResult: TextView
     private lateinit var confidenceTextview: TextView
     private lateinit var confidencTextview_1: TextView
@@ -36,8 +37,6 @@ class resultMainActivity : AppCompatActivity() {
     private lateinit var dogBreedImage: ImageView
     private lateinit var dogBreedImage_1: ImageView
     private lateinit var dogBreedImage_2: ImageView
-
-
     private lateinit var btnSave: Button
     private lateinit var btnExplore: Button
     private lateinit var btnShare: Button
@@ -65,15 +64,12 @@ class resultMainActivity : AppCompatActivity() {
         })
         mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
-                Log.d(TAG, "Ad was dismissed.");
             }
 
             override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
-                Log.d(TAG, "Ad failed to show.")
             }
 
             override fun onAdShowedFullScreenContent() {
-                Log.d(TAG, "Ad showed fullscreen content.");
                 mInterstitialAd = null
             }
         }
@@ -89,6 +85,7 @@ class resultMainActivity : AppCompatActivity() {
         btnGoToHis.visibility = View.INVISIBLE
         btnRateUs.visibility = View.INVISIBLE
 
+        //take data
         val intent = intent
         val result = intent.getStringExtra("predictedResult")
         val confidence = intent.getStringExtra("confidence")

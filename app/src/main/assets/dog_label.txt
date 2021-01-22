@@ -49,7 +49,7 @@ Leonberger
 Lhasa Apso
 Maltese Dog
 Xoloitzcuintle
-Newfoundland Dog
+Newfoundland dog
 Norfolk Terrier
 Norwegian Elkhound
 Norwich Terrier
@@ -60,9 +60,9 @@ Phu Quoc Dog
 Pomeranian Dog
 Rhodesian Ridgeback
 Rottweiler
-St.Bernard
+St. Bernard (dog)
 Saluki
-Samoyed Dog
+Samoyed dog
 Scotch Terrier
 Scottish Deerhound
 Sealyham Terrier
@@ -88,7 +88,7 @@ Black and Tan Coonhound
 Bloodhound
 Bluetick
 Borzoi
-Boxer Dog
+Boxer (dog)
 Briard
 Bull Mastiff
 Cairn Terrier
@@ -107,8 +107,8 @@ Keeshond
 Australian Kelpie
 Komondor
 Kuvasz
-AlasKan Malamute
-Belgian Shepherd (Malinois dog)
+Alaskan Malamute
+Belgian Shepherd
 Miniature Pinscher
 Miniature Poodle
 Miniature Schnauzer
